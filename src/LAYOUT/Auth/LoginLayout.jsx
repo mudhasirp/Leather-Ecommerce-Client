@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Login from "../../COMPONENTS/Login/LoginForm";
+import Login from "@/Components/Login/LoginForm";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import api from "../../API/axiosInstance";
@@ -20,7 +20,6 @@ const LoginLayout = () => {
     onSuccess: async (tokenResponse) => {
       try {
         const data = await googleLoginApi(tokenResponse.access_token)
-
         dispatch({
           type: "SET_USER",
           payload: {
@@ -30,7 +29,8 @@ const LoginLayout = () => {
         });
 
         toast.success("Welcome back 🤎");
-        navigate("/home");
+           navigate("/home");
+
       } catch (error) {
         console.error(error);
         toast.error("Google login failed");
@@ -56,7 +56,7 @@ const LoginLayout = () => {
         },
       });
 
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.error("Login error:", err.response?.data || err.message);
       toast.error(err.response?.data?.message || "Login failed");

@@ -97,7 +97,7 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
                 icon={<PackageSearch className="w-4 h-4" />}
                 onClick={() => {
                   onClose();
-                  navigate("/account/orders");
+                  navigate("/orders");
                 }}
               />
               <MenuItem

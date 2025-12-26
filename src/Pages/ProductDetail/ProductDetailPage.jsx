@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ProductDetail from "@/Layout/Products/ProductDetail";
 import { toast } from "sonner";
 import { getUserProductBySlugApi } from "@/API/userAPI";
+import HeaderLayout from "@/Layout/Header/HeaderLayout";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -40,6 +41,8 @@ export default function ProductDetailPage() {
 
   return (
     <main className="min-h-screen bg-background">
+            <HeaderLayout />
+      
       <ProductDetail product={product} />
     </main>
   );

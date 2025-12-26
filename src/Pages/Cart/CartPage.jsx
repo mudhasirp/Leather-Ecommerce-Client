@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 import CartItem from "@/Components/Cart/CartItem";
 import { toast } from "sonner";
 import {
@@ -174,11 +174,11 @@ console.log("raw cart item:", items);
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
   <div className="text-center space-y-8 animate-fade-in">
-    <h1 className="font-serif text-5xl md:text-6xl text-primary">Your cart is empty.</h1>
+    <h1 className="font-sans text-5xl md:text-6xl text-primary">Your cart is empty.</h1>
     
     <Button
       onClick={() => navigate("/shop")}
-      className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl px-8 py-6 text-lg font-serif transition-all hover:scale-105"
+      className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl px-8 py-6 text-lg font-sans transition-all hover:scale-105"
     >
       Continue Shopping
     </Button>
@@ -195,7 +195,7 @@ console.log("raw cart item:", items);
       <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
         {/* Header */}
         <div className="mb-12 animate-fade-in">
-          <h1 className="font-serif text-3xl md:text-4xl text-primary mb-3 text-balance">Your Cart</h1>
+          <h1 className="font-sans text-3xl md:text-4xl text-primary mb-3 text-balance">Your Cart</h1>
           <p className="text-muted-foreground text-lg">Review your selections before checkout.</p>
         </div>
 
@@ -218,29 +218,31 @@ console.log("raw cart item:", items);
           {/* Order Summary */}
           <div className="lg:col-span-4">
             <div className="bg-card rounded-2xl p-8 border border-border shadow-sm sticky top-8 animate-fade-in">
-              <h2 className="font-serif text-3xl text-card-foreground mb-6">Order Summary</h2>
+              <h2 className="font-sans text-3xl text-card-foreground mb-6">Order Summary</h2>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between text-muted-foreground">
                   <span>Subtotal</span>
-                  <span className="font-serif">₹{subtotal.toFixed(2)}</span>
+                  <span className="font-sans">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>Total Quantity</span>
-                  <span className="font-serif">{totalItems}</span>
+                  <span className="font-sans">{totalItems}</span>
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span></span>
-                  <span className="font-serif"></span>
+                  <span className="font-sans"></span>
                 </div>
                 <div className="h-px bg-border my-4" />
                 <div className="flex justify-between text-foreground text-xl">
-                  <span className="font-serif font-semibold">Total</span>
-                  <span className="font-serif font-semibold">₹{total.toFixed(2)}</span>
+                  <span className="font-sans font-semibold">Total</span>
+                  <span className="font-sans font-semibold">₹{total.toFixed(2)}</span>
                 </div>
               </div>
 
-              <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl py-6 text-lg font-serif shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]">
+              <Button onClick={() => navigate("/checkout")}
+              
+className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl py-6 text-lg font-sans shadow-md hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]">
                 Proceed to Checkout
               </Button>
             </div>

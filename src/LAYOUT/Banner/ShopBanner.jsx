@@ -30,7 +30,7 @@ export default function ShopBanner() {
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, delay: 0.18, ease: "easeOut" }}
-                        className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight bg-gradient-to-r from-[#8a6a4a] via-[#6b4c33] to-[#3a2b1f] bg-clip-text text-transparent"
+                        className="font-sans text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light tracking-tight bg-gradient-to-r from-[#8a6a4a] via-[#6b4c33] to-[#3a2b1f] bg-clip-text text-transparent"
                     >
                         The Collection
                     </motion.h1>

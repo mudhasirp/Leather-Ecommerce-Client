@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button } from "../../components/ui/button";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../components/ui/input-otp";
+import { Button } from "../../Components/ui/button";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "../../Components/ui/input-otp";
 
 const OtpVerify = ({ email = "****@gmail.com", onVerify }) => {
   const [otp, setOtp] = useState("");

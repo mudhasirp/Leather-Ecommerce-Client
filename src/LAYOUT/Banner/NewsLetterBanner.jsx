@@ -21,7 +21,7 @@ export default function NewsletterBanner() {
         <div className="bg-card border border-border/30 rounded-sm p-12 md:p-16 text-center space-y-8 animate-fade-in">
           <div className="space-y-2">
             <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
-              Join the Leather Circle
+              Join the Vegetable Circle
             </h2>
             <p className="text-lg text-muted-foreground font-light">
               Be the first to access limited drops and exclusive releases.

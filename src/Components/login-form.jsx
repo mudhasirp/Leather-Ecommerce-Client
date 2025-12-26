@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/Components/ui/button"
+import { Input } from "@/Components/ui/input"
 import Link from "next/link"
 
 export default function LoginForm() {

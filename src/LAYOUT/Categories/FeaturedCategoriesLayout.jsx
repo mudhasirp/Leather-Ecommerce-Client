@@ -1,4 +1,3 @@
-// src/Layout/Categories/FeaturedCategoriesLayout.jsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -11,62 +10,80 @@ export default function FeaturedCategories() {
 
   useEffect(() => {
     let mounted = true;
+
     (async () => {
       try {
         const data = await getUserCategories();
-        // support both shapes: { categories: [...] } or an array directly
         const list = Array.isArray(data)
           ? data
           : Array.isArray(data?.categories)
           ? data.categories
-          : (data?.data && Array.isArray(data.data.categories) ? data.data.categories : []);
+          : data?.data?.categories || [];
 
         if (!mounted) return;
-        // normalize minimal shape for UI
-        const normalized = list.map((c) => ({
-          id: c._id ?? c.id ?? c.name,
-          name: c.name,
-          image: c.image || c.icon || "/placeholder-category.png",
-        }));
-        setCategories(normalized);
+
+        setCategories(
+          list.map((c) => ({
+            id: c._id ?? c.id,
+            name: c.name,
+            image: c.image || c.icon || "/placeholder-category.png",
+          }))
+        );
       } catch (err) {
         console.error("Failed to load categories:", err);
-        if (!mounted) return;
-        setCategories([]);
+        if (mounted) setCategories([]);
       } finally {
         if (mounted) setLoading(false);
       }
     })();
+
     return () => {
       mounted = false;
     };
   }, []);
 
   return (
-    <section className="w-full py-20 md:py-32 px-4 md:px-6 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground mb-2">
+    <section className="w-full bg-background py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        {/* HEADER */}
+        <div className="text-center mb-14">
+          <h2 className="text-3xl md:text-4xl font-sans text-green-700 font-semibold ">
             Featured Categories
           </h2>
-          <div className="h-0.5 w-12 bg-linear-to-r from-transparent via-accent to-transparent mx-auto" />
+          <div className="mx-auto mt-3 h-[2px] w-14 bg-green-500 rounded" />
         </div>
 
+        {/* CONTENT */}
         {loading ? (
-          <div className="text-center py-12">Loading categories...</div>
-        ) : categories.length === 0 ? (
-          <div className="text-center py-12 text-muted-foreground">No categories yet.</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => (
-              <CategoryCard
-                key={category.id}
-                id={category.id}
-                name={category.name}
-                image={category.image}
-              />
-            ))}
+          <div className="text-center py-20 text-muted-foreground">
+            Loading categories...
           </div>
+        ) : categories.length === 0 ? (
+          <div className="text-center py-20 text-muted-foreground">
+            No categories available
+          </div>
+        ) : (
+          <div
+  className="
+    grid
+    grid-cols-2
+    sm:grid-cols-2
+    md:grid-cols-3
+    lg:grid-cols-4
+    xl:grid-cols-5
+    gap-4
+  "
+>
+  {categories.map((category) => (
+    <CategoryCard
+      key={category.id}
+      id={category.id}
+      name={category.name}
+      image={category.image}
+    />
+  ))}
+</div>
+
         )}
       </div>
     </section>

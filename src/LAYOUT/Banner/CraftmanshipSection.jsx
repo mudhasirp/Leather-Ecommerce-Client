@@ -7,10 +7,9 @@ export default function CraftsmanshipSection() {
   const ref = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
 
-  // detect mobile (runs only on client)
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768); // < md breakpoint
+      setIsMobile(window.innerWidth < 768);
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -22,7 +21,6 @@ export default function CraftsmanshipSection() {
     offset: ["start end", "end start"],
   });
 
-  // Strong on desktop, softer on mobile
   const imageY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -47,58 +45,49 @@ export default function CraftsmanshipSection() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+          
           {/* Text */}
           <motion.div
             style={{ y: textY }}
             className="space-y-6 will-change-transform"
           >
             <div className="space-y-4">
-              <h2 className="font-serif text-4xl md:text-6xl font-light tracking-tight text-foreground">
-                Crafted by Hand.
+              <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-green-900">
+                Grown with Care.
                 <br />
-                Built for Time.
+                Harvested Fresh.
               </h2>
               <div className="h-0.5 w-12 bg-gradient-to-r from-accent to-transparent" />
             </div>
 
-            <p className="text-lg text-muted-foreground font-light leading-relaxed">
-              Each piece is made from ethically sourced full-grain leather by
-              master artisans with decades of experience. We believe in slow
-              production, meticulous attention to detail, and creating pieces
-              that improve with age.
+            <p className="text-lg text-green-700 leading-relaxed">
+              Our vegetables are grown by trusted local farmers using natural
+              farming practices. Every harvest is carefully selected at peak
+              freshness to ensure rich taste, nutrition, and quality.
             </p>
 
-            <p className="text-sm text-muted-foreground font-light tracking-wide">
-              Our commitment to quality means every stitch, every cut, and every
-              finish is considered with purpose.
+            <p className="text-sm text-green-600 tracking-wide">
+              From soil preparation to harvest day, every step is handled with
+              care — so you receive produce that’s fresh, healthy, and honest.
             </p>
           </motion.div>
 
-          {/* Image + Grain */}
+          {/* Image */}
           <motion.div
             style={{ y: imageY, scale: imageScale }}
             className="
               relative overflow-hidden will-change-transform shadow-xl
-              rounded-sm
+              rounded-xl
               aspect-[4/5] md:aspect-4/3
             "
           >
-            {/* Grain overlay */}
-            <div
-              className="
-                absolute inset-0 pointer-events-none
-                opacity-10 md:opacity-[0.08]
-                bg-[url('/grain.png')] bg-cover bg-center
-                mix-blend-overlay
-              "
-            />
-
             <img
-              src="/craftManShip.png"
-              alt="Leather craftsmanship"
+              src="/vegetables-hero.png"
+              alt="Fresh vegetables being harvested"
               className="w-full h-full object-cover"
             />
           </motion.div>
+
         </div>
       </div>
     </section>

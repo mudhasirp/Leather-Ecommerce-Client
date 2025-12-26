@@ -134,7 +134,7 @@ export default function ProductList({ products = [], onEdit, onToggle, loadingId
         ) : (
           <div className="space-y-3 px-2">
             {products.map((p) => (
-              <ProductCard key={p._id} p={p} onEdit={onEdit} onToggle={onToggle} loading={loadingIds.has(p._1d)} />
+              <ProductCard key={p._id} p={p} onEdit={onEdit} onToggle={onToggle} loading={loadingIds.has(p._id)} />
             ))}
           </div>
         )}

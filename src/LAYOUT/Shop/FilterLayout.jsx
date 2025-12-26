@@ -1,57 +1,44 @@
-// FilterLayout.jsx
 "use client";
 
-import { useState, useEffect } from "react";
-import FilterBar from "@/Components/Shop/FilterBar";
+import { useEffect, useState } from "react";
+import FilterSidebar from "@/Components/Shop/FilterBar";
 
 export default function FilterLayout({ categories = [], onFilterChange }) {
-  const sortOptions = [
-    { label: "New Arrivals", value: "new" },
-    { label: "Best Selling", value: "bestselling" },
-    { label: "Price: Low to High", value: "price-asc" },
-    { label: "Price: High to Low", value: "price-desc" },
-  ];
-
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [sortBy, setSortBy] = useState("new");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [filters, setFilters] = useState({
+    category: "all",
+    sortBy: "new",
+    search: "",
+  });
 
   useEffect(() => {
-    // If categories prop changes and selectedCategory isn't valid, keep "all"
-    if (selectedCategory !== "all" && !categories.some(c => c.id === selectedCategory)) {
-      setSelectedCategory("all");
-      onFilterChange?.({ category: "all", sortBy, search: searchTerm });
-    }
-  }, [categories]);
-
-  const updateFilter = (category, sortValue, searchValue) => {
-    const payload = {
-      category: category ?? selectedCategory,
-      sortBy: sortValue ?? sortBy,
-      search: searchValue ?? searchTerm,
-    };
-    onFilterChange?.(payload);
-  };
+    onFilterChange?.(filters);
+  }, [filters]);
 
   return (
-    <FilterBar
-      categories={[ { id: "all", name: "All" }, ...categories ]}
-      sortOptions={sortOptions}
-      selectedCategory={selectedCategory}
-      onCategoryChange={(catId) => {
-        setSelectedCategory(catId);
-        updateFilter(catId, null, null);
-      }}
-      sortBy={sortBy}
-      onSortChange={(value) => {
-        setSortBy(value);
-        updateFilter(null, value, null);
-      }}
-      searchValue={searchTerm}
-      onSearchChange={(value) => {
-        setSearchTerm(value);
-        updateFilter(null, null, value);
-      }}
-    />
+    <div className="flex w-full ">
+
+      {/* SIDEBAR */}
+      <aside className="w-72  shrink-0 bg-white border-r le">
+        <div className="p-4">
+          <FilterSidebar
+            categories={[{ id: "all", name: "All Categories" }, ...categories]}
+            sortOptions={[
+              { label: "New Arrivals", value: "new" },
+              { label: "Best Selling", value: "bestselling" },
+              { label: "Price: Low to High", value: "price-asc" },
+              { label: "Price: High to Low", value: "price-desc" },
+            ]}
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <main className="flex-1 p-4">
+        {/* Product Grid Here */}
+      </main>
+
+    </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "../../COMPONENTS/Login/LoginForm"; // your card wrapper
+import Login from "@/Components/Login/LoginForm"; // your card wrapper
 import OtpVerify from "@/Components/Login/OtpVerify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

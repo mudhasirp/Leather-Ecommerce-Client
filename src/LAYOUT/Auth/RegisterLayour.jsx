@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Login from "../../COMPONENTS/Login/LoginForm";
+import Login from "@/Components/Login/LoginForm";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import api from "../../API/axiosInstance";

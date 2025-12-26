@@ -5,6 +5,7 @@ import FeaturedProducts from "@/Layout/Products/FeaturedProductLayout";
 import CraftsmanshipSection from "@/Layout/Banner/CraftmanshipSection";
 import NewsletterBanner from "@/Layout/Banner/NewsLetterBanner";
 import Footer from "@/Layout/Footer/FooterLayout";
+import ImageAdBanner from "@/Components/Shop/ImageAdBanner";
 
 export default function HomePage(){
     return (
@@ -12,6 +13,8 @@ export default function HomePage(){
         <HeaderLayout/>
         <BannerSection/>
         <FeaturedCategories/>
+                <ImageAdBanner/>
+
         <FeaturedProducts/>
         <CraftsmanshipSection/>
         <NewsletterBanner/>

@@ -1,65 +1,104 @@
-// FilterBar.jsx
 "use client";
-import { ChevronDown, Search } from "lucide-react";
 
-export default function FilterBar({
-  categories = [],
-  sortOptions = [],
-  selectedCategory,
-  onCategoryChange,
-  sortBy,
-  onSortChange,
-  searchValue,
-  onSearchChange,
+import { Search } from "lucide-react";
+
+export default function FilterSidebar({
+  categories,
+  sortOptions,
+  filters,
+  setFilters,
 }) {
   return (
-    <div className="border-b border-border pb-8 mb-12">
-      <div className="flex flex-wrap gap-3 md:gap-6 mb-8 items-center">
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            onClick={() => {
-              console.log("FilterBar click:", cat);
-              onCategoryChange(cat.id);
-            }}
-            className={`text-sm md:text-base font-medium transition-colors duration-200 ${
-              selectedCategory === cat.id
-                ? "text-foreground border-b-2 border-accent"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            {cat.name}
-          </button>
-        ))}
-      </div>
+    <aside
+      className="
+        w-full
+        lg:w-72
+        shrink-0
+        bg-white
+        border border-border
+        rounded-2xl
+        p-5
+        space-y-6
+        lg:sticky lg:top-24
+        h-fit
+      "
+    >
+      {/* SEARCH */}
+      <div className="bg-white rounded-2xl border border-border p-5 space-y-6">
 
-      <div className="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-muted-foreground">Sort by:</label>
-          <div className="relative">
-            <select value={sortBy} onChange={(e) => onSortChange(e.target.value)}
-              className="appearance-none bg-background text-foreground text-sm font-medium pr-8 py-2 pl-3 border border-border rounded-sm focus:outline-none focus:ring-1 focus:ring-accent cursor-pointer">
-              {sortOptions.map((option) => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          </div>
-        </div>
-
-        <div className="w-full md:w-64">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
-              value={searchValue}
-              onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Search products"
-              className="w-full pl-9 pr-3 py-2 border border-border rounded-sm bg-background text-sm text-foreground placeholder:text-muted-foreground"
-            />
-          </div>
+        <label className="block text-sm font-medium text-foreground mb-2">
+          Search
+        </label>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            value={filters.search}
+            onChange={(e) =>
+              setFilters((p) => ({ ...p, search: e.target.value }))
+            }
+            placeholder="Search products"
+            className="
+              w-full pl-9 pr-3 py-2
+              rounded-lg border border-border
+              text-sm
+              focus:outline-none focus:ring-2 focus:ring-green-200
+            "
+          />
         </div>
       </div>
-    </div>
+
+      {/* CATEGORIES */}
+      <div>
+        <h4 className="text-sm font-semibold text-foreground mb-3">
+          Categories
+        </h4>
+
+        <div className="flex flex-col gap-1 max-h-[240px] overflow-y-auto pr-1">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() =>
+                setFilters((p) => ({ ...p, category: cat.id }))
+              }
+              className={`text-left px-3 py-2 rounded-lg text-sm transition
+                ${
+                  filters.category === cat.id
+                    ? "bg-green-100 text-green-800 font-medium"
+                    : "hover:bg-muted text-muted-foreground"
+                }
+              `}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* SORT */}
+      <div>
+        <label className="block text-sm font-semibold text-foreground mb-2">
+          Sort By
+        </label>
+        <select
+          value={filters.sortBy}
+          onChange={(e) =>
+            setFilters((p) => ({ ...p, sortBy: e.target.value }))
+          }
+          className="
+            w-full border border-border
+            rounded-lg px-3 py-2
+            text-sm
+            focus:outline-none focus:ring-2 focus:ring-green-200
+          "
+        >
+          {sortOptions.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    </aside>
   );
 }

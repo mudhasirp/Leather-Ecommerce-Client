@@ -1,47 +1,44 @@
-import React, { useState } from 'react';
-import AdminSidebar from '../Component/Common/AdminSidebar';
-import DashboardStatsSection from '../Layout/Dashboard/DashboardStatsSection';
-import RecentOrdersSection from '../Layout/Dashboard/RecentOrdersSection';
-import TopCategoriesSection from '../Layout/Dashboard/TopCategoriesSection';
-const AdminDashboardPage = () => {
-  const [activeNav, setActiveNav] = useState('dashboard');
+// src/Admin/Pages/DashboardPage.jsx
+"use client";
+
+import { useEffect, useState } from "react";
+import AdminSidebar from "../Component/Common/AdminSidebar";
+import StatCard from "../Component/Dashboard/StatCard";
+import SalesChart from "../Component/Dashboard/SalesChart";
+import TopProducts from "../Component/Dashboard/TopProducts";
+import SalesReport from "../Component/Dashboard/SalesReport";
+import { getDashboardApi } from "@/API/adminApi";
+
+export default function DashboardPage() {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    getDashboardApi().then(setData);
+  }, []);
+
+  if (!data) return null;
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Sidebar */}
-      <AdminSidebar activeItem={activeNav} onNavigate={setActiveNav} />
+    <div className="h-screen flex bg-background">
+      <AdminSidebar activeItem="dashboard" />
 
-      {/* Main Content Area */}
-      <div className="ml-64">
-        {/* Top Bar */}
-        
+      <main className="flex-1 p-8 space-y-8 overflow-y-auto">
+        {/* KPI */}
+        <div className="grid md:grid-cols-4 gap-6">
+          <StatCard title="Users" value={data.totalUsers} />
+          <StatCard title="Products" value={data.totalProducts} />
+          <StatCard title="Orders" value={data.totalOrders} />
+          <StatCard title="Revenue" value={`₹${data.totalRevenue}`} />
+        </div>
 
-        {/* Dashboard Content */}
-        <main className="px-12 py-12">
-          {/* Page Header */}
-          <div className="mb-16">
-            <h1 className="text-5xl font-serif font-light mb-4 tracking-tight">Dashboard</h1>
-            <p className="text-muted-foreground text-lg">
-              Welcome back. Here's what's happening with your store today.
-            </p>
-          </div>
+        {/* GRAPH */}
+        <SalesChart data={data.salesChart} />
 
-          {/* Stats Section */}
-          <DashboardStatsSection />
-
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <RecentOrdersSection />
-            </div>
-            <div className="lg:col-span-1">
-              <TopCategoriesSection />
-            </div>
-          </div>
-        </main>
-      </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          <TopProducts products={data.topProducts} />
+          <SalesReport orders={data.recentOrders} />
+        </div>
+      </main>
     </div>
   );
-};
-
-export default AdminDashboardPage;
+}

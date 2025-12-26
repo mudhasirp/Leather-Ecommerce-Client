@@ -1,30 +1,9 @@
-import React from 'react';
-
-const StatCard = ({ title, value, change, subtitle }) => {
-  const isPositive = change >= 0;
-
+// Components/Dashboard/StatCard.jsx
+export default function StatCard({ title, value }) {
   return (
-    <div className="bg-card rounded-lg p-8 border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-500">
-      <p className="text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">
-        {title}
-      </p>
-      
-      <div className="mb-4">
-        <h3 className="text-4xl font-serif font-light text-foreground">
-          {value}
-        </h3>
-      </div>
-
-      <div className="flex items-center justify-between">
-        <p className="text-xs text-muted-foreground">
-          {subtitle}
-        </p>
-        <span className={`text-xs font-medium ${isPositive ? 'text-green-700' : 'text-red-700'}`}>
-          {isPositive ? '+' : ''}{change}%
-        </span>
-      </div>
+    <div className="bg-white rounded-2xl border p-6">
+      <p className="text-sm text-muted-foreground">{title}</p>
+      <p className="text-3xl font-semibold text-green-700 mt-2">{value}</p>
     </div>
   );
-};
-
-export default StatCard;
+}

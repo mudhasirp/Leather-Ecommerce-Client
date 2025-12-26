@@ -3,9 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Heart, Share2, BookOpen } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "../ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
+import { Badge } from "../ui/badge";
 
 /**
  * Map common color names (case-insensitive) to hex values.

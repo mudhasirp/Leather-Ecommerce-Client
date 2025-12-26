@@ -1,78 +1,98 @@
-import React from "react";
+"use client";
 
-const AdminSidebar = ({ activeItem, onNavigate, isOpen = false, onClose = () => {} }) => {
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+const AdminSidebar = ({
+  activeItem,
+  isOpen = false,
+  onClose = () => {},
+}) => {
+  const navigate = useNavigate();
+
   const menuItems = [
-    { id: "dashboard", label: "Dashboard" },
-    { id: "orders", label: "Orders" },
-    { id: "products", label: "Products" },
-    { id: "customers", label: "Customers" },
-    { id: "categories", label: "Categories" },
-    { id: "settings", label: "Settings" },
+    { id: "dashboard", label: "Dashboard", path: "/admin" },
+    { id: "orders", label: "Orders", path: "/admin/orders" },
+    { id: "products", label: "Products", path: "/admin/product" },
+    { id: "customers", label: "Customers", path: "/admin/customers" },
+    { id: "categories", label: "Categories", path: "/admin/category" },
+    { id: "enquires", label: "Enquiry", path: "/admin/enquiry" },
   ];
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Backdrop (mobile) */}
       <div
         className={`fixed inset-0 bg-black/40 z-40 md:hidden transition-opacity ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
-        aria-hidden={!isOpen}
       />
 
+      {/* Sidebar */}
       <aside
         className={`
           fixed left-0 top-0 z-50 h-screen w-64
-          text-foreground
-          border-r border-border
-          flex flex-col backdrop-blur-xl
+          flex flex-col
+          border-r border-green-200/40
           transform transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0 md:static md:w-64
+          md:translate-x-0 md:static
         `}
-        style={{ background: "oklch(0.78 0.05 60)" }}
+        style={{
+          background:
+            "linear-gradient(180deg, oklch(0.88 0.12 145), oklch(0.80 0.10 145))",
+        }}
       >
-        {/* Close button (mobile only) */}
+        {/* Mobile header */}
         <div className="flex items-center justify-between px-6 py-4 md:hidden">
-          <div>
-            <h1 className="text-lg font-serif">Leather Haven</h1>
-          </div>
+          <h1 className="text-lg font-semibold text-green-900">
+            Veg Admin
+          </h1>
           <button
             onClick={onClose}
-            aria-label="Close menu"
-            className="p-2 rounded-md hover:bg-muted/10"
-            type="button"
+            className="p-2 rounded-md hover:bg-green-200/40"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 6l12 12M6 18L18 6" />
-            </svg>
+            ✕
           </button>
         </div>
 
-        {/* Brand (desktop) */}
+        {/* Brand */}
         <div className="px-8 py-6 hidden md:block">
-          <h1 className="text-2xl font-serif tracking-wide">Leather Haven</h1>
-          <p className="text-xs text-muted-foreground uppercase tracking-[0.2em] mt-2">Admin Panel</p>
+          <h1 className="text-2xl font-semibold text-green-900 tracking-wide">
+            FreshMart
+          </h1>
+          <p className="text-xs uppercase tracking-[0.2em] text-green-800/70 mt-2">
+            Admin Panel
+          </p>
         </div>
 
         {/* Menu */}
-        <nav className="flex-1 px-6 py-6 space-y-1">
+        <nav className="flex-1 px-4 py-6 space-y-1">
           {menuItems.map((item) => {
             const isActive = activeItem === item.id;
+
             return (
               <button
                 key={item.id}
                 onClick={() => {
-                  onNavigate && onNavigate(item.id);
-                  onClose && onClose(); // close on mobile
+                  navigate(item.path);
+                  onClose();
                 }}
-                className={`w-full text-left px-4 py-3 text-xs uppercase tracking-[0.15em] transition-all duration-300 relative ${
-                  isActive ? "text-foreground font-medium" : "text-foreground/70 hover:text-foreground"
-                }`}
-                type="button"
+                className={`
+                  relative w-full text-left px-4 py-3 rounded-xl
+                  text-sm uppercase tracking-wider
+                  transition-all duration-200
+                  ${
+                    isActive
+                      ? "bg-white/60 text-green-900 font-semibold"
+                      : "text-green-900/70 hover:bg-white/40 hover:text-green-900"
+                  }
+                `}
               >
-                {isActive && <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-[2px] bg-accent rounded-full" />}
+                {isActive && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-[3px] bg-green-700 rounded-full" />
+                )}
                 {item.label}
               </button>
             );
@@ -80,14 +100,16 @@ const AdminSidebar = ({ activeItem, onNavigate, isOpen = false, onClose = () => 
         </nav>
 
         {/* Footer */}
-        <div className="px-8 py-8 border-t border-border/40">
+        <div className="px-6 py-6 border-t border-green-300/40">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-primary/15 rounded-full flex items-center justify-center">
-              <span className="text-xs font-medium">AD</span>
+            <div className="w-9 h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-xs font-bold">
+              AD
             </div>
             <div>
-              <p className="text-sm font-medium">Admin</p>
-              <p className="text-xs text-muted-foreground">admin@leatherhaven.com</p>
+              <p className="text-sm font-medium text-green-900">Admin</p>
+              <p className="text-xs text-green-800/70">
+                admin@freshmart.com
+              </p>
             </div>
           </div>
         </div>

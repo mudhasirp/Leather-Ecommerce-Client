@@ -49,3 +49,38 @@ export const toggleProductApi = async (id) => {
   const res = await api.patch(`/admin/products/${id}/toggle`);
   return res.data;
 };
+export const getAdminOrdersApi = async () => {
+  const res = await api.get("/admin/orders");
+  return res.data;
+};
+
+export const updateOrderStatusApi = async (id, status) => {
+  const res = await api.patch(`/admin/orders/${id}/status`, { status });
+  return res.data;
+};
+export const getAdminEnquiriesApi = async () => {
+  const res = await api.get("/admin/enquiries");
+  return res.data;
+};
+
+export const updateEnquiryStatusApi = async (id, status) => {
+  const res = await api.patch(`/admin/enquiries/${id}/status`, { status });
+  return res.data;
+};
+export const getAdminCustomersApi=async()=>{
+  const res= await api.get("/admin/customers");
+  return res.data
+}
+export const getAdminCustomerDetailsApi = async (id) => {
+  const res = await api.get(`/admin/customers/${id}`);
+  return res.data;
+};
+
+export const toggleCustomerBlockApi = async (id) => {
+  const res = await api.patch(`/admin/customers/${id}/block`);
+  return res.data;
+};
+export const getDashboardApi = async () => {
+  const res = await api.get("/admin/dashboard");
+  return res.data;
+};

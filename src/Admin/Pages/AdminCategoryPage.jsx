@@ -66,10 +66,12 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-background text-foreground">
+    <div className="h-screen flex overflow-hidden bg-background text-foreground">
+
       <AdminSidebar activeItem="categories" onNavigate={() => {}} isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1">
+  <div className="flex-1 overflow-y-auto">
+
         <CategoryPageHeader onCreate={() => setModalOpen(true)} onToggleSidebar={() => setSidebarOpen(true)} />
 
         <main className="w-full px-6 py-6 md:pl-0">

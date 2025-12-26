@@ -73,3 +73,50 @@ export const clearCartApi = async () => {
   const res = await api.delete("/user/cart");
   return res.data;
 };
+
+export const createOrderApi = async (payload) => {
+  const res = await api.post("/user/orders", payload);
+  return res.data;
+};
+export const getAddressesApi = async () => {
+  const res = await api.get("/user/addresses");
+  return res.data;
+};
+
+export const createAddressApi = async (payload) => {
+  const res = await api.post("/user/addresses", payload);
+  return res.data;
+};
+
+export const updateAddressApi = async (id, payload) => {
+  const res = await api.put(`/user/addresses/${id}`, payload);
+  return res.data;
+};
+
+export const setDefaultAddressApi = async (id) => {
+  const res = await api.patch(`/user/addresses/${id}/default`);
+  return res.data;
+};
+export const deleteAddressApi = async (id) => {
+  const res = await api.delete(`/user/addresses/${id}`);
+  return res.data;
+};
+
+export const getMyOrdersApi = async () => {
+  const res = await api.get("/user/orders/my-orders");
+  return res.data;
+};
+
+export const getOrderDetailsApi = async (id) => {
+  const res = await api.get(`/user/orders/${id}`);
+  return res.data;
+};
+
+export const createEnquiryApi = async (payload) => {
+  const res = await api.post("/user/enquiry", payload);
+  return res.data;
+};
+export const getCustomersApi = async () => {
+  const res = await api.get("/admin/customers");
+  return res.data;
+};
