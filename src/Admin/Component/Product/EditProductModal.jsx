@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { updateProductApi, getCategoriesApi } from "@/API/adminApi";
@@ -18,7 +17,7 @@ export default function EditProductModal({ open, onClose, product, onUpdated }) 
   const [mainImage, setMainImage] = useState(null);
   const [preview, setPreview] = useState("");
 
-  /* ---------------- LOAD DATA ---------------- */
+  
   useEffect(() => {
     if (!open || !product) return;
 
@@ -42,7 +41,6 @@ export default function EditProductModal({ open, onClose, product, onUpdated }) 
     );
   }, [open, product]);
 
-  /* ---------------- SUBMIT ---------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -122,7 +120,6 @@ export default function EditProductModal({ open, onClose, product, onUpdated }) 
           {preview && <img src={preview} className="mt-2 h-32 rounded" />}
         </div>
 
-        {/* VARIANTS */}
         <div className="mt-6">
           <h3 className="font-medium mb-2">Variants</h3>
 

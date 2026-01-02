@@ -1,18 +1,16 @@
-// src/Routes/ProtectedRoute.jsx
-import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
+export default function ProtectedRoute() {
+  const { user, accessToken } = useSelector((state) => state.user || {});
 
-export default function ProtectedRoute({ children }) {
-  const { user, accessToken } = useSelector((s) => s.user || {});
-  const location = useLocation();
-
-  const isAuthenticated = !!user && !!accessToken;
-
-  if (!isAuthenticated) {
-    return <Navigate to="/" replace state={{ from: location }} />;
+  if (!user || !accessToken) {
+    return <Navigate to="/" replace />;
+  }
+  
+  if (user.role !== "user") {
+    return <Navigate to="/" replace />;
   }
 
-  return children;
+  return <Outlet />;
 }

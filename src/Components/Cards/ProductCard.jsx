@@ -1,34 +1,60 @@
-"use client";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
-export default function ProductCard({ product }) {
-  const navigate = useNavigate();
-  const { slug, name, price, image } = product;
-
+export default function ProductCard({ product, onAddToCart }) {
+  const { _id, name, price, image, unitLabel, stock,weight} = product;
+  const [qty, setQty] = useState(1);
+  console.log(_id)
   return (
-    <div
-      onClick={() => navigate(`/product/${slug}`)}
-      className="cursor-pointer rounded-2xl bg-green-950 border border-green-100 hover:border-green-300 hover:shadow-lg transition"
-    >
-      {/* Image */}
-      <div className="overflow-hidden rounded-t-2xl">
+    <div className="bg-white rounded-xl shadow hover:shadow-md transition p-3">
+      <Link to={`/product/${product.slug}`}>
         <img
-          src={image || "/placeholder.svg"}
+          src={image}
           alt={name}
-          className="w-full h-56 object-cover hover:scale-105 transition"
+          className="w-full h-57 object-cover rounded-lg"
         />
-      </div>
+      </Link>
 
-      {/* Info */}
-      <div className="px-4 py-3 text-center ">
-        <h3 className="text-sm font-medium text-white bg-green-950 truncate">
-          {name}
-        </h3>
+      <h3 className="mt-2 font-medium text-sm">{name}</h3>
 
-        <p className="text-white bg-green-80 font-semibold mt-1">
-          ₹{Number(price).toLocaleString()}
-        </p>
-      </div>
+      <p className="text-green-700 font-semibold">₹{price}</p>
+       <p
+  className={`text-sm ${
+    product.stock <= qty ? "text-red-600" : "text-green-600"
+  }`}
+>
+  {product.stock <= qty
+    ? "Only the last stock available"
+    : `${product.stock * product.weight} g available`}
+</p>
+       <div className="flex flex-col md:flex-row items-center gap-2 mt-2">
+
+          <div className="flex items-center border rounded-md overflow-hidden">
+            <button
+              className="md:px-1   px-3 py-1 text-lg"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+            >
+              −
+            </button>
+            <span className="px-3 text-sm">{product.weight*qty}g</span>
+           <button
+  className="px-3 py-1 text-lg"
+  onClick={() => {
+    if (qty < product.stock) setQty(qty + 1);
+  }}
+>
+  +
+</button>
+
+          </div>
+
+          <button
+            onClick={() => onAddToCart({ _id, qty,weight})}
+            className="flex-1 md:px-8 bg-green-600 hover:bg-green-700 text-white px-13 py-2 rounded-md text-sm "
+          >
+            Add
+          </button>
+        </div>
     </div>
   );
 }

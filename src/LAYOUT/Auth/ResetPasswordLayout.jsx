@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Login from "@/Components/Login/LoginForm";
 import { useLocation, useNavigate } from "react-router-dom";
-import api from "../../API/axiosInstance";
 import { toast } from "sonner";
 import { resetPasswordApi } from "@/API/userAPI";
 
@@ -15,7 +14,6 @@ const ResetPasswordLayout = () => {
 
   const email = location.state?.email;
 
-  // If user hits /reset-password directly without email, kick them back
   useEffect(() => {
     if (!email) {
       navigate("/forgot-password");
@@ -54,7 +52,6 @@ const ResetPasswordLayout = () => {
     <Login
       mainContent={
         <>
-          {/* Brand Block */}
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
             <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
               LEATHER
@@ -67,12 +64,10 @@ const ResetPasswordLayout = () => {
             </p>
           </div>
 
-          {/* New Password Form */}
           <form
             onSubmit={handleSubmit}
             className="space-y-6 w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-6"
           >
-            {/* Heading + subtext */}
             <div className="space-y-2 text-left">
               <h2 className="text-xl md:text-2xl font-light tracking-tight text-foreground">
                 Set a new password
@@ -82,7 +77,6 @@ const ResetPasswordLayout = () => {
               </p>
             </div>
 
-            {/* New Password */}
             <div className="space-y-2 text-left">
               <label
                 htmlFor="newPassword"
@@ -101,7 +95,6 @@ const ResetPasswordLayout = () => {
               />
             </div>
 
-            {/* Confirm Password */}
             <div className="space-y-2 text-left">
               <label
                 htmlFor="confirmPassword"
@@ -120,7 +113,6 @@ const ResetPasswordLayout = () => {
               />
             </div>
 
-            {/* Reset Button */}
             <button
               type="submit"
               disabled={isLoading}

@@ -1,7 +1,5 @@
-// src/Component/Product/ProductList.jsx
 import React from "react";
 
-// small toggle UI (re-usable)
 function ToggleSwitch({ checked, onChange, disabled, loading }) {
   return (
     <button
@@ -94,7 +92,6 @@ export default function ProductList({ products = [], onEdit, onToggle, loadingId
   return (
     <div className="space-y-4 w-full">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-serif">Products</h2>
         <div className="flex items-center gap-3">
           <button onClick={onRefresh} className="inline-flex items-center gap-2 rounded-md px-3 py-1 text-sm text-muted-foreground hover:bg-card/60">
             Refresh

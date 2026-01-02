@@ -1,5 +1,3 @@
-// src/Components/Admin/AdminLoginForm.jsx
-"use client";
 
 export default function AdminLoginForm({
   email,
@@ -11,7 +9,6 @@ export default function AdminLoginForm({
 }) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      {/* Email */}
       <div className="space-y-2">
         <label className="text-xs font-medium tracking-[0.18em] uppercase text-muted-foreground">
           Admin Email
@@ -26,7 +23,6 @@ export default function AdminLoginForm({
         />
       </div>
 
-      {/* Password */}
       <div className="space-y-2">
         <label className="text-xs font-medium tracking-[0.18em] uppercase text-muted-foreground">
           Password
@@ -41,12 +37,10 @@ export default function AdminLoginForm({
         />
       </div>
 
-      {/* Info text */}
       <div className="flex items-center justify-between text-[11px] text-muted-foreground/80">
         <span>Only authorized Leather Haven staff.</span>
       </div>
 
-      {/* Button */}
       <button
         type="submit"
         disabled={isLoading}

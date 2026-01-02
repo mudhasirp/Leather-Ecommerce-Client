@@ -1,4 +1,3 @@
-"use client";
 
 import { useState } from "react";
 import { toast } from "sonner";
@@ -42,13 +41,11 @@ export default function EnquiryModal({ open, onClose, product }) {
   return (
     <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4">
       <div className="bg-white rounded-2xl w-full max-w-md p-6 space-y-5">
-        {/* HEADER */}
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">Product Enquiry</h3>
           <button onClick={onClose}>✕</button>
         </div>
 
-        {/* PRODUCT */}
         <div className="flex items-center gap-4">
           <img
             src={product.mainImage}
@@ -57,7 +54,6 @@ export default function EnquiryModal({ open, onClose, product }) {
           <p className="font-medium">{product.name}</p>
         </div>
 
-        {/* MESSAGE */}
         <textarea
           className="lux-input"
           rows={3}
@@ -65,7 +61,6 @@ export default function EnquiryModal({ open, onClose, product }) {
           onChange={(e) => setMessage(e.target.value)}
         />
 
-        {/* PHONE */}
         <input
           className="lux-input"
           placeholder="Your phone number"
@@ -73,7 +68,6 @@ export default function EnquiryModal({ open, onClose, product }) {
           onChange={(e) => setPhone(e.target.value)}
         />
 
-        {/* ACTION */}
         <button
           onClick={submit}
           disabled={loading}

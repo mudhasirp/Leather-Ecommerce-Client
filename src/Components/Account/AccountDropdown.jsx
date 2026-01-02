@@ -1,5 +1,4 @@
-// src/Components/Account/AccountDropdown.jsx
-"use client";
+
 
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +23,6 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
     };
   }, [open, onClose]);
 
-  // close on ESC
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") onClose();
@@ -33,17 +31,14 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
     return () => document.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
-  // framer variants
   const panel = {
     hidden: { opacity: 0, y: -6, scale: 0.98 },
     enter: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.18 } },
     exit: { opacity: 0, y: -6, scale: 0.98, transition: { duration: 0.14 } },
   };
 
-  // style uses CSS custom properties defined in your theme
-  // card uses slight cream (var(--card)), text uses var(--card-foreground) or var(--foreground)
   const panelStyle = {
-    backgroundColor: "var(--card)", // slight cream card surface
+    backgroundColor: "var(--card)", 
     color: "var(--card-foreground, var(--foreground))",
     borderColor: "var(--border)",
   };
@@ -67,30 +62,20 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
             className="rounded-2xl shadow-2xl ring-1 ring-black/6 border overflow-hidden"
             style={panelStyle}
           >
-            {/* Header / user snapshot */}
             <div className="px-5 py-4 flex items-center gap-4 border-b" style={{ borderColor: "var(--border)" }}>
               <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[color:var(--background)]/80 border" style={{ borderColor: "var(--border)" }}>
                 <User className="w-6 h-6 text-[color:var(--foreground)]" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm font-serif font-semibold leading-tight truncate" style={{ color: "var(--card-foreground)" }}>
+                <div className="text-sm font-sans font-semibold leading-tight truncate" style={{ color: "var(--card-foreground)" }}>
                   {user?.name || "Guest"}
                 </div>
                 <div className="text-xs text-muted-foreground truncate">{user?.email || "Not signed in"}</div>
               </div>
             </div>
 
-            {/* Menu items */}
             <div className="px-2 py-2">
-              <MenuItem
-                label="Profile"
-                sub="View & edit profile"
-                icon={<User className="w-4 h-4" />}
-                onClick={() => {
-                  onClose();
-                  navigate("/account/profile");
-                }}
-              />
+              
               <MenuItem
                 label="My Orders"
                 sub="Track your purchases"
@@ -122,12 +107,11 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
                   aria-label="Sign out"
                 >
                   <LogOut className="w-4 h-4" />
-                  <span className="text-sm font-medium font-serif">Sign out</span>
+                  <span className="text-sm font-medium font-sans">Sign out</span>
                 </button>
               </div>
             </div>
 
-            {/* footer small note */}
             <div className="px-4 py-3 text-xs text-muted-foreground border-t" style={{ borderColor: "var(--border)" }}>
               <div>Leather Haven — handcrafted premium goods</div>
             </div>
@@ -147,7 +131,7 @@ function MenuItem({ icon, label, sub, onClick }) {
     >
       <div className="mt-0.5 text-muted-foreground">{icon}</div>
       <div className="flex-1">
-        <div className="text-sm font-serif font-medium text-card-foreground">{label}</div>
+        <div className="text-sm font-medium text-card-foreground">{label}</div>
         {sub && <div className="text-xs text-muted-foreground">{sub}</div>}
       </div>
     </button>

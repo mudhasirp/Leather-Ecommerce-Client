@@ -40,7 +40,6 @@ const ResetOtpLayout = () => {
         <>
           
 
-          {/* Reused OTP component */}
           <div className="w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-6">
             <OtpVerify email={email} onVerify={handleVerify} />
           </div>

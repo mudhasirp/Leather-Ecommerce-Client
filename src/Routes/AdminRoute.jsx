@@ -1,18 +1,17 @@
-// src/Routes/AdminRoute.jsx
-import React from "react";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
-
-export default function AdminRoute({ children }) {
-  const admin = useSelector((s) => s.admin?.admin ?? s.admin); 
+export default function AdminRoute() {
+  const { user, accessToken } = useSelector((state) => state.user || {});
   const location = useLocation();
 
-  const isAdmin = !!admin;
-
-  if (!isAdmin) {
+  if (!user || !accessToken) {
     return <Navigate to="/admin" replace state={{ from: location }} />;
   }
 
-  return children;
+  if (user.role !== "admin") {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return <Outlet />;
 }

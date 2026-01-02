@@ -5,12 +5,16 @@ import { useDispatch } from "react-redux";
 import api from "../../API/axiosInstance";
 import { toast } from "sonner";
 import { sendOtpApi } from "@/API/userAPI";
+import { Eye, EyeOff } from "lucide-react";
+
 const RegisterLayout = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail]     = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,13 +34,13 @@ const RegisterLayout = () => {
       name: fullName,
       email,
       password,
-      purpose: "register",        // 🔥 important
+      purpose: "register",        
     });
 
     toast.success("OTP sent to your email 🤎");
 
     navigate("/verify-otp", {
-      state: { email, name: fullName, purpose: "register" }, // (optional but useful)
+      state: { email, name: fullName, purpose: "register" }, 
     });
   } catch (err) {
     console.error("Register error:", err.response?.data || err.message);
@@ -57,7 +61,7 @@ const RegisterLayout = () => {
       mainContent={
         <>
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
-            <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
+            <h2 className="font-sans text-4xl md:text-5xl font-light tracking-tight text-foreground">
               LEATHER
               <br />
               HAVEN
@@ -68,12 +72,10 @@ const RegisterLayout = () => {
             </p>
           </div>
 
-          {/* Register form */}
           <form
             onSubmit={submitRegister}
             className="space-y-6 w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-6"
           >
-            {/* Full Name */}
             <div className="space-y-2 text-left">
               <label
                 htmlFor="fullName"
@@ -92,7 +94,6 @@ const RegisterLayout = () => {
               />
             </div>
 
-            {/* Email */}
             <div className="space-y-2 text-left">
               <label
                 htmlFor="email"
@@ -110,46 +111,63 @@ const RegisterLayout = () => {
                 className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
               />
             </div>
-
-            {/* Password */}
             <div className="space-y-2 text-left">
-              <label
-                htmlFor="password"
-                className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
-              />
-            </div>
+        <label
+          htmlFor="password"
+          className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
+        >
+          Password
+        </label>
 
-            {/* Confirm Password */}
-            <div className="space-y-2 text-left">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
-              >
-                Confirm Password
-              </label>
-              <input
-                id="confirmPassword"
-                type="password"
-                placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
-              />
-            </div>
+        <div className="relative">
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 pr-10 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
+          />
 
-            {/* Submit */}
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          >
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Confirm Password */}
+      <div className="space-y-2 text-left">
+        <label
+          htmlFor="confirmPassword"
+          className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
+        >
+          Confirm Password
+        </label>
+
+        <div className="relative">
+          <input
+            id="confirmPassword"
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="••••••••"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 pr-10 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          >
+            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+          </button>
+        </div>
+      </div>
+      
             <button
               type="submit"
               disabled={isLoading}
@@ -158,7 +176,6 @@ const RegisterLayout = () => {
               {isLoading ? "Creating Account..." : "Create Account"}
             </button>
 
-            {/* Login link */}
             <div className="pt-4 border-t border-border/30 text-center text-sm text-muted-foreground font-light">
               Already have an account?{" "}
               <Link

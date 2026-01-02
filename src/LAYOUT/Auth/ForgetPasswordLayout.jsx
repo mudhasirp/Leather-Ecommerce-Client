@@ -36,9 +36,8 @@ const ForgotPasswordLayout = () => {
     <Login
       mainContent={
         <>
-          {/* Branding */}
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
-            <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
+            <h2 className="font-sans text-4xl md:text-5xl font-light tracking-tight text-foreground">
               LEATHER
               <br />
               HAVEN
@@ -53,7 +52,6 @@ const ForgotPasswordLayout = () => {
             onSubmit={submitForgot}
             className="space-y-6 w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-6"
           >
-            {/* Heading */}
             <div className="space-y-3 text-left">
               <h2 className="text-xl font-light text-foreground">
                 Forgot your password?
@@ -63,7 +61,6 @@ const ForgotPasswordLayout = () => {
               </p>
             </div>
 
-            {/* Email */}
             <div className="space-y-2 text-left">
               <label
                 htmlFor="email"
@@ -82,7 +79,6 @@ const ForgotPasswordLayout = () => {
               />
             </div>
 
-            {/* Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -91,7 +87,6 @@ const ForgotPasswordLayout = () => {
               {isLoading ? "Sending..." : "Send Reset Code"}
             </button>
 
-            {/* Back */}
             <div className="pt-4 border-t border-border/30 text-center text-sm text-muted-foreground font-light">
               <Link to="/" className="hover:text-accent transition-colors">
                 Return to login

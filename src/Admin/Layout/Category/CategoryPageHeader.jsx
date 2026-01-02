@@ -1,4 +1,3 @@
-// src/Layout/Category/CategoryPageHeader.jsx
 import React from "react";
 
 export default function CategoryPageHeader({ onCreate, onToggleSidebar }) {
@@ -18,7 +17,7 @@ export default function CategoryPageHeader({ onCreate, onToggleSidebar }) {
           </button>
 
           <div>
-            <h1 className="text-3xl md:text-4xl font-serif tracking-tight">Categories</h1>
+            <h1 className="text-2xl sm:ml-5 md:ml-0 md:text-4xl font-sans tracking-tight">Categories</h1>
             <p className="text-muted-foreground mt-1">
               Manage your product categories
             </p>
@@ -28,7 +27,7 @@ export default function CategoryPageHeader({ onCreate, onToggleSidebar }) {
         <div>
           <button
             onClick={onCreate}
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm tracking-wide hover:bg-primary/95"
+            className="bg-primary text-primary-foreground px-2 py-1 ml-7 mb-8 md:ml-0 md:mb-0 md:px-3 md:py-3 rounded-lg text-sm md:text-xl md:font-medium tracking-wide hover:bg-primary/95"
           >
             Create Category
           </button>

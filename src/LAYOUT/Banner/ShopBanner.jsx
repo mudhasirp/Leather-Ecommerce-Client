@@ -1,4 +1,3 @@
-"use client";
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -13,7 +12,6 @@ export default function ShopBanner() {
                     transition={{ duration: 0.7, ease: "easeOut" }}
                     className="relative z-40 flex flex-col items-center text-center px-6 max-w-3xl mx-auto space-y-5"
                 >
-                    {/* Eyebrow Tag */}
                     <motion.div
                         initial={{ opacity: 0, y: 12 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -24,8 +22,6 @@ export default function ShopBanner() {
                         Leather Haven · Fine Leather Goods
                     </motion.div>
 
-                    {/* Title */}
-
                     <motion.h1
                         initial={{ opacity: 0, y: 18 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -35,7 +31,6 @@ export default function ShopBanner() {
                         The Collection
                     </motion.h1>
 
-                    {/* Subtitle */}
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -58,17 +53,13 @@ function LampBackground({ children, className }) {
                 className
             )}
         >
-            {/* Base background */}
             <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
 
-            {/* Dotted leather texture */}
             <div className="absolute inset-0 opacity-[0.12] pointer-events-none">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(180,160,130,0.45)_1px,transparent_1px)] bg-size-[34px_34px]" />
             </div>
 
-            {/* === ADDING YOUR BLOBS (Premium Glow) === */}
-
-            {/* Gold blob top-right */}
+           
             <motion.div
                 initial={{ opacity: 0.4, x: 30, y: -30 }}
                 animate={{ opacity: 0.8, x: 10, y: -10 }}
@@ -76,7 +67,6 @@ function LampBackground({ children, className }) {
                 className="absolute top-[-90px] right-[-60px] w-[260px] h-[260px] rounded-full bg-[radial-gradient(circle,rgba(205,175,120,0.7),transparent_70%)] blur-3xl z-10"
             />
 
-            {/* Warm chocolate blob bottom-left */}
             <motion.div
                 initial={{ opacity: 0.35, x: -50, y: 30 }}
                 animate={{ opacity: 0.9, x: -15, y: 0 }}
@@ -84,13 +74,9 @@ function LampBackground({ children, className }) {
                 className="absolute bottom-[-90px] left-[-50px] w-[240px] h-[240px] rounded-full bg-[radial-gradient(circle,rgba(90,60,50,0.8),transparent_70%)] blur-3xl z-10"
             />
 
-            {/* === Lamp Beams (Soft Premium Version) === */}
-
-            {/* === Lamp Beams (Clean version — no rectangles) === */}
+        
             <div className="relative flex w-full flex-1 items-center justify-center isolate z-0">
 
-                {/* Left beam */}
-                {/* Left beam (fixed smooth version) */}
                 <motion.div
                     initial={{ opacity: 0.35, width: "10rem" }}
                     animate={{ opacity: 0.65, width: "22rem" }}
@@ -103,7 +89,6 @@ function LampBackground({ children, className }) {
                 />
 
 
-                {/* Right beam */}
                 <motion.div
                     initial={{ opacity: 0.35, width: "10rem" }}
                     animate={{ opacity: 0.65, width: "22rem" }}
@@ -115,7 +100,6 @@ function LampBackground({ children, className }) {
                     className="absolute inset-auto left-1/2 h-40 w-[22rem]"
                 />
 
-                {/* Glow underneath (keeps hero premium & soft) */}
                 <motion.div
                     initial={{ scale: 0.8, opacity: 0.5 }}
                     animate={{ scale: 1, opacity: 0.85 }}
@@ -130,7 +114,7 @@ function LampBackground({ children, className }) {
             </div>
 
 
-            {/* Content slot */}
+            
             <div className="relative z-40 flex flex-col items-center justify-center">
                 {children}
             </div>

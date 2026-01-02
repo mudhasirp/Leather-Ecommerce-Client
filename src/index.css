@@ -3,9 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* -----------------------------------
-   BASE TYPOGRAPHY (POPPINS ONLY)
------------------------------------ */
 @layer base {
   body {
     font-family: Poppins, "Poppins Placeholder", system-ui, -apple-system, sans-serif;
@@ -16,9 +13,7 @@
   h3 { font-weight: 600; }
 }
 
-/* -----------------------------------
-   ROOT COLORS (LIGHT MODE – VEGGIE)
------------------------------------ */
+
 :root {
   --background: #f9fbf7;
   --foreground: #1f2d1f;
@@ -29,7 +24,7 @@
   --popover: #ffffff;
   --popover-foreground: #1f2d1f;
 
-  --primary: #2f7d32; /* leaf green */
+  --primary: #2f7d32; 
   --primary-foreground: #ffffff;
 
   --secondary: #e8f5e9;
@@ -38,7 +33,7 @@
   --muted: #eef4ec;
   --muted-foreground: #4f6b4f;
 
-  --accent: #f57c00; /* carrot orange */
+  --accent: #f57c00; 
   --accent-foreground: #ffffff;
 
   --destructive: #d32f2f;
@@ -66,9 +61,7 @@
   --sidebar-ring: #66bb6a;
 }
 
-/* -----------------------------------
-   TAILWIND THEME MAPPING
------------------------------------ */
+
 @theme inline {
   --font-sans: Poppins, "Poppins Placeholder", system-ui, -apple-system, sans-serif;
   --font-mono: ui-monospace, monospace;
@@ -110,9 +103,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* -----------------------------------
-   BASE ELEMENTS
------------------------------------ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -145,11 +135,9 @@
 .hide-scrollbar::-webkit-scrollbar {
   width: 0px;
   height: 0px;
-  display: none;                /* Chrome, Safari */
+  display: none;                
 }
-/* -----------------------------------
-   COMPONENTS (VEGETABLE UI)
------------------------------------ */
+
 @layer components {
 
   .lux-label {
@@ -213,9 +201,7 @@
   }
 }
 
-/* -----------------------------------
-   DARK MODE (FARM NIGHT)
------------------------------------ */
+
 .dark {
   --background: #121a12;
   --foreground: #eaf5ea;

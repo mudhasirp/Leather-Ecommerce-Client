@@ -1,4 +1,3 @@
-// src/Component/Admin/CreateCategoryModal.jsx
 import React, { useEffect, useState } from "react";
 import { createCategoryApi } from "@/API/adminApi";
 
@@ -89,9 +88,8 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
     className="relative z-10 w-full max-w-3xl rounded-2xl bg-card p-4 sm:p-6 shadow-lg border border-border
                max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-6rem)] overflow-auto"
   >
-        {/* Header */}
         <header className="mb-4 flex items-center justify-between">
-          <h3 className="text-lg font-serif">Create Category</h3>
+          <h3 className="text-lg font-sans">Create Category</h3>
 
           <button
             type="button"
@@ -114,12 +112,9 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
           </button>
         </header>
 
-        {/* BODY: medium fixed right column; top-aligned */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-4 items-start">
-          {/* Left (form fields) */}
-            {/* Left (form fields) */}
+        
 <div className="space-y-4">
-  {/* Name */}
   <div>
     <label className="text-xs uppercase text-muted-foreground block mb-2">Name</label>
     <input
@@ -130,7 +125,6 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
     />
   </div>
 
-  {/* Active checkbox (separate row, aligned center) */}
   <div className="flex items-center gap-3">
     <input
       id="isActive"
@@ -145,7 +139,6 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
     </label>
   </div>
 
-  {/* Description */}
   <div>
     <label className="text-xs uppercase text-muted-foreground block mb-2">Description</label>
     <textarea
@@ -159,7 +152,6 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
 </div>
 
 
-          {/* Right (image upload + medium preview), top-aligned */}
           <div className="space-y-3 flex flex-col self-start">
             <label className="text-xs uppercase text-muted-foreground">Image</label>
 
@@ -167,7 +159,6 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
               <input type="file" accept="image/*" onChange={handleFile} />
             </div>
 
-            {/* MEDIUM PREVIEW: fills right column (360px) and stays medium on all screens */}
             <div className="w-full rounded-md border overflow-hidden bg-background relative">
               <div className="w-full h-0 pb-[75%] relative">
                 {preview ? (
@@ -188,10 +179,8 @@ export default function CreateCategoryModal({ open, onClose, onCreated }) {
           </div>
         </div>
 
-        {/* Error */}
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
-        {/* Footer */}
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"

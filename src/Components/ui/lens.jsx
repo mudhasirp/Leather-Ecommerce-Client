@@ -1,4 +1,3 @@
-"use client";;
 import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -18,7 +17,6 @@ export const Lens = ({
   const isHovering = hovering !== undefined ? hovering : localIsHovering;
   const setIsHovering = setHovering || setLocalIsHovering;
 
-  // const [isHovering, setIsHovering] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 100, y: 100 });
 
   const handleMouseMove = (e) => {

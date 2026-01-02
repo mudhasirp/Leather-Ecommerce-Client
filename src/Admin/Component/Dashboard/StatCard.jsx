@@ -1,4 +1,3 @@
-// Components/Dashboard/StatCard.jsx
 export default function StatCard({ title, value }) {
   return (
     <div className="bg-white rounded-2xl border p-6">

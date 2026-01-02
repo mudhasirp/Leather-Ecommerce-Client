@@ -15,7 +15,6 @@ const VerifyOtpLayout = () => {
   const email = location.state?.email;
 
   if (!email) {
-    // user came here directly
     navigate("/register");
   }
 

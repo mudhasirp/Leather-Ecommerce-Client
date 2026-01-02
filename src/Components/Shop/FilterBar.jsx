@@ -1,104 +1,57 @@
-"use client";
-
-import { Search } from "lucide-react";
-
-export default function FilterSidebar({
-  categories,
-  sortOptions,
-  filters,
-  setFilters,
-}) {
+export default function FilterSidebar({ categories, filters, setFilters, onClose }) {
   return (
-    <aside
-      className="
-        w-full
-        lg:w-72
-        shrink-0
-        bg-white
-        border border-border
-        rounded-2xl
-        p-5
-        space-y-6
-        lg:sticky lg:top-24
-        h-fit
-      "
-    >
-      {/* SEARCH */}
-      <div className="bg-white rounded-2xl border border-border p-5 space-y-6">
-
-        <label className="block text-sm font-medium text-foreground mb-2">
-          Search
-        </label>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            value={filters.search}
-            onChange={(e) =>
-              setFilters((p) => ({ ...p, search: e.target.value }))
-            }
-            placeholder="Search products"
-            className="
-              w-full pl-9 pr-3 py-2
-              rounded-lg border border-border
-              text-sm
-              focus:outline-none focus:ring-2 focus:ring-green-200
-            "
-          />
-        </div>
+    <div className="space-y-6">
+      <div>
+        <label className="text-sm font-medium">Search</label>
+        <input
+          type="text"
+          placeholder="Search products"
+          value={filters.search}
+          onChange={(e) => {
+            setFilters((p) => ({ ...p, search: e.target.value }));
+            onClose();
+          }}
+          className="mt-2 w-full border rounded-md px-3 py-2"
+        />
       </div>
 
-      {/* CATEGORIES */}
       <div>
-        <h4 className="text-sm font-semibold text-foreground mb-3">
-          Categories
-        </h4>
-
-        <div className="flex flex-col gap-1 max-h-[240px] overflow-y-auto pr-1">
+        <h4 className="font-sans  font-semibold mb-2">Categories</h4>
+        <ul className="space-y-2">
           {categories.map((cat) => (
-            <button
+            <li
               key={cat.id}
-              onClick={() =>
-                setFilters((p) => ({ ...p, category: cat.id }))
-              }
-              className={`text-left px-3 py-2 rounded-lg text-sm transition
-                ${
-                  filters.category === cat.id
-                    ? "bg-green-100 text-green-800 font-medium"
-                    : "hover:bg-muted text-muted-foreground"
-                }
-              `}
+              onClick={() => {
+                setFilters((p) => ({ ...p, category: cat.id }));
+                onClose();
+              }}
+              className={`cursor-pointer px-3 py-2 font-sans font-medium rounded-md ${
+                filters.category === cat.id
+                  ? "bg-green-100 text-green-700"
+                  : "hover:bg-gray-100"
+              }`}
             >
               {cat.name}
-            </button>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
 
-      {/* SORT */}
       <div>
-        <label className="block text-sm font-semibold text-foreground mb-2">
-          Sort By
-        </label>
+        <label className=" font-sans font-medium">Sort By</label>
         <select
+          className="w-full mt-2 border rounded-md p-2 font-sans font-medium"
           value={filters.sortBy}
-          onChange={(e) =>
-            setFilters((p) => ({ ...p, sortBy: e.target.value }))
-          }
-          className="
-            w-full border border-border
-            rounded-lg px-3 py-2
-            text-sm
-            focus:outline-none focus:ring-2 focus:ring-green-200
-          "
+          onChange={(e) => {
+            setFilters((p) => ({ ...p, sortBy: e.target.value }));
+            onClose();
+          }}
         >
-          {sortOptions.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
+          <option value="new">New Arrivals</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
         </select>
       </div>
-    </aside>
+    </div>
   );
 }

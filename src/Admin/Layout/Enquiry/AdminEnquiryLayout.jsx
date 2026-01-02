@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -9,10 +8,13 @@ import {
 
 export default function EnquiriesLayout() {
   const [enquiries, setEnquiries] = useState([]);
- const STATUS_FILTERS = ["All", "New", "Contacted", "Closed"];
+  const [statusFilter, setStatusFilter] = useState("All");
 
-const [statusFilter, setStatusFilter] = useState("All");
+  const STATUS_FILTERS = ["All", "New", "Contacted", "Closed"];
 
+  useEffect(() => {
+    load();
+  }, []);
 
   const load = async () => {
     try {
@@ -22,25 +24,16 @@ const [statusFilter, setStatusFilter] = useState("All");
       toast.error("Failed to load enquiries");
     }
   };
-  const filteredEnquiries =
-  statusFilter === "All"
+
+  const filtered = statusFilter === "All"
     ? enquiries
     : enquiries.filter((e) => e.status === statusFilter);
-  useEffect(() => {
-    load();
-  }, []);
- const formatPhone = (phone) => {
-  if (!phone) return "";
-  return phone.startsWith("+91") ? phone : `+91${phone}`;
-};
 
   const updateStatus = async (id, status) => {
     try {
       await updateEnquiryStatusApi(id, status);
       setEnquiries((prev) =>
-        prev.map((e) =>
-          e._id === id ? { ...e, status } : e
-        )
+        prev.map((e) => (e._id === id ? { ...e, status } : e))
       );
       toast.success("Status updated");
     } catch {
@@ -48,129 +41,79 @@ const [statusFilter, setStatusFilter] = useState("All");
     }
   };
 
+  const formatPhone = (phone) =>
+    phone?.startsWith("+") ? phone : `+91${phone}`;
+
   return (
-    <div className="p-8 space-y-6">
-      <h1 className="text-3xl font-serif text-green-800">
-        Product Enquiries
-      </h1>
-      {/* FILTER BAR */}
-<div className="flex gap-2 bg-muted/40 p-1 rounded-xl w-fit">
-  {STATUS_FILTERS.map((status) => (
-    <button
-      key={status}
-      onClick={() => setStatusFilter(status)}
-      className={`
-        px-4 py-1.5 rounded-lg text-sm font-medium transition
-        ${
-          statusFilter === status
-            ? "bg-white shadow text-green-700"
-            : "text-muted-foreground hover:text-foreground"
-        }
-      `}
-    >
-      {status}
-    </button>
-  ))}
-</div>
+    <div className="min-h-screen bg-slate-50 p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+        <h1 className="text-2xl font-semibold text-slate-900">
+          Product Enquiries
+        </h1>
 
+        <div className="flex flex-wrap gap-2">
+          {STATUS_FILTERS.map((status) => (
+            <button
+              key={status}
+              onClick={() => setStatusFilter(status)}
+              className={`px-4 py-2 rounded-lg text-sm transition ${
+                statusFilter === status
+                  ? "bg-green-600 text-white"
+                  : "bg-white border hover:bg-slate-100"
+              }`}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      <div className="grid gap-5">
-        {filteredEnquiries.map((e) => (
+      <div className="space-y-4">
+        {filtered.map((e) => (
           <div
             key={e._id}
-            className="bg-white border rounded-2xl p-6 shadow-sm"
+            className="bg-white rounded-xl border p-5 shadow-sm"
           >
-            {/* PRODUCT */}
-            {/* PRODUCT */}
-<div className="flex gap-4">
-  <img
-    src={e.product?.image || "/placeholder.png"}
-    className="w-20 h-20 rounded-xl object-cover border"
-    alt={e.product?.name}
-  />
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex gap-4">
+                <img
+                  src={e.product?.image || "/placeholder.png"}
+                  className="w-20 h-20 rounded-xl object-cover"
+                  alt="product"
+                />
 
-  <div className="flex-1 space-y-1">
-    <h3 className="font-medium text-lg">
-      {e.product?.name}
-    </h3>
+                <div>
+                  <h3 className="font-semibold text-lg">
+                    {e.product?.name}
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Enquiry by <b>{e.username}</b>
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    📞 {formatPhone(e.userPhone)}
+                  </p>
+                </div>
+              </div>
 
-    <p className="text-sm text-muted-foreground">
-      Enquiry by: <span className="font-medium">{e.username}</span>
-    </p>
+              <select
+                value={e.status}
+                onChange={(ev) => updateStatus(e._id, ev.target.value)}
+                className="border rounded-md px-3 py-2 text-sm"
+              >
+                <option>New</option>
+                <option>Contacted</option>
+                <option>Closed</option>
+              </select>
+            </div>
 
-    <p className="text-sm">📞 {e.userPhone}</p>
-
-    {/* 🔥 CALL + WHATSAPP BUTTONS */}
-    <div className="flex gap-3 mt-2">
-      <a
-        href={`tel:${formatPhone(e.userPhone)}`}
-        className="
-          inline-flex items-center gap-2
-          px-3 py-1.5
-          rounded-lg
-          text-sm font-medium
-          border border-green-200
-          bg-green-50 text-green-700
-          hover:bg-green-100
-          transition
-        "
-      >
-        📞 Call
-      </a>
-
-      <a
-        href={`https://wa.me/${formatPhone(e.userPhone).replace("+", "")}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="
-          inline-flex items-center gap-2
-          px-3 py-1.5
-          rounded-lg
-          text-sm font-medium
-          bg-[#25D366]
-          text-white
-          hover:opacity-90
-          transition
-        "
-      >
-        💬 WhatsApp
-      </a>
-    </div>
-  </div>
-
-  {/* STATUS */}
-  <select
-    value={e.status}
-    onChange={(ev) =>
-      updateStatus(e._id, ev.target.value)
-    }
-    className="border rounded-lg px-3 py-2 text-sm h-fit"
-  >
-    <option value="New">New</option>
-    <option value="Contacted">Contacted</option>
-    <option value="Closed">Closed</option>
-  </select>
-</div>
-
-
-              {/* STATUS */}
-              
-
-            {/* MESSAGE */}
-            <div className="mt-4 text-sm bg-muted/30 p-4 rounded-xl">
+            <div className="mt-4 bg-slate-50 p-4 rounded-lg text-sm">
               {e.message}
             </div>
 
-            {/* ADDRESS */}
-            <div className="mt-4 text-xs text-muted-foreground">
-              {e.userAddress ? (
-                <>
-                  {e.userAddress.line1}, {e.userAddress.city},{" "}
-                  {e.userAddress.state} – {e.userAddress.postalCode}
-                </>
-              ) : (
-                <i>No address provided</i>
-              )}
+            <div className="mt-3 text-xs text-slate-500">
+              {e.userAddress
+                ? `${e.userAddress.line1}, ${e.userAddress.city}, ${e.userAddress.state}`
+                : "No address available"}
             </div>
           </div>
         ))}

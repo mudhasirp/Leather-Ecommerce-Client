@@ -1,5 +1,3 @@
-// src/Components/Navbar/Navbar.jsx
-"use client";
 
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,7 +7,7 @@ import AccountDropdown from "../Account/AccountDropdown";
 export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((s) => s.user?.user); // adjust selector if your store shape differs
+  const user = useSelector((s) => s.user?.user); 
 
   const [navOpen, setNavOpen] = useState(isMenuOpen);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -23,14 +21,12 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
   return (
     <nav ref={containerRef} className="relative">
       <div className="flex items-center justify-between">
-        {/* Logo */}
         <Link to="/home" className="shrink-0">
-          <div className="font-serif text-2xl font-light tracking-tight text-foreground">
+          <div className="font-sans text-2xl font-light tracking-tight text-foreground">
             LH
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           <Link to="/home" className="text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
             Home
@@ -38,9 +34,7 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
           <Link to="/shop" className="text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
             Shop
           </Link>
-          <Link to="#" className="text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
-            Collections
-          </Link>
+        
           <Link to="#" className="text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
             About
           </Link>
@@ -49,27 +43,9 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
           </Link>
         </div>
 
-        {/* Icons: Wishlist, Cart, User */}
         <div className="flex items-center gap-3">
-          {/* Wishlist */}
-          <div className="relative group">
-            <button
-              className="p-2 hover:text-accent transition-colors"
-              aria-label="Wishlist"
-              onClick={() => navigate("/wishlist")}
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                  d="M21 8.25c0-1.085-.667-2.025-1.6-2.5a2.25 2.25 0 00-2.25 0m16.5 0a2.25 2.25 0 00-2.25 0m0 0a2.25 2.25 0 00-2.25 0m16.5 0v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 20.25V8.25m19.5 0A2.25 2.25 0 0021 6.75H3m19.5 0h-1.5V6a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6v2.25m0 0H3m16.5 0h1.5" />
-              </svg>
-            </button>
+         
 
-            <span className="pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md border border-border bg-card/90 px-2 py-1 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity">
-              Wishlist
-            </span>
-          </div>
-
-          {/* Cart */}
           <div className="relative group">
             <button
               className="p-2 hover:text-accent transition-colors"
@@ -91,7 +67,6 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
             </span>
           </div>
 
-          {/* User (opens AccountDropdown) */}
           <div className="relative group">
             <button
               className="p-2 hover:text-accent transition-colors"
@@ -108,7 +83,6 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
               Account
             </span>
 
-            {/* AccountDropdown: uses absolute positioning and will align right within this relative container */}
             <AccountDropdown
               user={user}
               open={accountOpen}
@@ -117,7 +91,6 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
             />
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 hover:text-accent transition-colors"
             onClick={() => { setNavOpen((s) => !s); onToggleMenu(); }}
@@ -131,7 +104,6 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {navOpen && (
         <div className="md:hidden mt-4 space-y-3 pb-4">
           <Link to="/home" className="block text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
@@ -140,9 +112,7 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
           <Link to="/shop" className="block text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
             Shop
           </Link>
-          <Link to="#" className="block text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
-            Collections
-          </Link>
+       
           <Link to="#" className="block text-sm tracking-widest text-foreground hover:text-accent transition-colors font-light">
             About
           </Link>

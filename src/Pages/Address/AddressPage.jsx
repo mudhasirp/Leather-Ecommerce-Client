@@ -1,5 +1,3 @@
-// src/Pages/Account/AddressPage.jsx
-"use client";
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -57,7 +55,6 @@ const handleDelete = async (id) => {
     <div className="max-w-5xl mx-auto px-4 py-8">
       
     <div className="flex flex-wrap gap-3 justify-between items-center mb-6">
-  {/* LEFT */}
   <div className="flex items-center gap-4">
    <button
   onClick={() => navigate("/home")}
@@ -84,7 +81,6 @@ const handleDelete = async (id) => {
     </h1>
   </div>
 
-  {/* RIGHT */}
   <button
     onClick={() => {
       setEditing(null);

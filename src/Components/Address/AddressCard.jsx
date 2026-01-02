@@ -1,4 +1,3 @@
-// src/Components/Address/AddressCard.jsx
 import { Pencil, Trash2, CheckCircle } from "lucide-react";
 
 export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
@@ -10,7 +9,6 @@ export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
         hover:shadow-md transition
       "
     >
-      {/* DEFAULT BADGE */}
       {address.isDefault && (
         <span className="absolute top-4 right-4 flex items-center gap-1 text-xs font-medium bg-green-100 text-green-700 px-2.5 py-1 rounded-full">
           <CheckCircle size={12} />
@@ -18,12 +16,11 @@ export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
         </span>
       )}
 
-      {/* NAME */}
       <h3 className="text-base font-semibold text-gray-900">
         {address.fullName}
       </h3>
 
-      {/* ADDRESS */}
+      
       <p className="mt-2 text-sm text-gray-600 leading-relaxed">
         {address.line1}
         {address.line2 && `, ${address.line2}`} <br />
@@ -31,14 +28,11 @@ export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
         {address.country}
       </p>
 
-      {/* PHONE */}
       <p className="mt-3 text-sm font-medium text-gray-800">
         📞 {address.phone}
       </p>
 
-      {/* ACTIONS */}
       <div className="flex items-center gap-3 mt-5">
-        {/* EDIT */}
         <button
           onClick={onEdit}
           className="
@@ -53,7 +47,6 @@ export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
           Edit
         </button>
 
-        {/* SET DEFAULT */}
         {!address.isDefault && (
           <button
             onClick={onDefault}
@@ -70,7 +63,6 @@ export default function AddressCard({ address, onEdit, onDefault, onDelete }) {
           </button>
         )}
 
-        {/* DELETE */}
         <button
           onClick={onDelete}
           className="

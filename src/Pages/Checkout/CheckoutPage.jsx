@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +17,6 @@ import {
 export default function CheckoutPage() {
   const navigate = useNavigate();
 
-  /* ---------------- STATE ---------------- */
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +37,6 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState("COD");
 
-  /* ---------------- LOAD CART + ADDRESSES ---------------- */
   useEffect(() => {
     (async () => {
       try {
@@ -59,13 +56,11 @@ export default function CheckoutPage() {
     })();
   }, []);
 
-  /* ---------------- TOTALS ---------------- */
   const subtotal =
     cart?.items?.reduce((s, i) => s + i.price * i.qty, 0) || 0;
   const deliveryFee = subtotal >= 499 ? 0 : 40;
   const total = subtotal + deliveryFee;
 
-  /* ---------------- PLACE ORDER ---------------- */
   const handlePlaceOrder = async () => {
     let addressPayload;
 
@@ -119,7 +114,6 @@ export default function CheckoutPage() {
     }
   };
 
-  /* ---------------- UI ---------------- */
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -139,12 +133,10 @@ export default function CheckoutPage() {
 
       <div className="max-w-7xl mx-auto px-6 py-10 grid gap-10 lg:grid-cols-[1fr_420px]">
 
-        {/* LEFT */}
         <div className="space-y-8">
 
-          {/* ADDRESS */}
           <section className="bg-card border rounded-2xl p-6">
-            <h2 className="text-2xl font-serif mb-4">
+            <h2 className="text-2xl font-sans mb-4">
               Delivery Address
             </h2>
 
@@ -239,9 +231,8 @@ export default function CheckoutPage() {
             )}
           </section>
 
-          {/* PAYMENT */}
           <section className="bg-card border rounded-2xl p-6">
-            <h2 className="text-2xl font-serif mb-4">
+            <h2 className="text-2xl font-sans mb-4">
               Payment Method
             </h2>
 
@@ -266,9 +257,8 @@ export default function CheckoutPage() {
           </section>
         </div>
 
-        {/* RIGHT */}
         <aside className="bg-card border rounded-2xl p-6 h-fit sticky top-8">
-          <h2 className="text-2xl font-serif mb-4">
+          <h2 className="text-2xl font-sans mb-4">
             Order Summary
           </h2>
 

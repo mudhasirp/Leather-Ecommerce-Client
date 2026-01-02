@@ -12,10 +12,11 @@ export default function HomePage(){
         <main className="min-h-screen bg-background"> 
         <HeaderLayout/>
         <BannerSection/>
+                <FeaturedProducts/>
+
         <FeaturedCategories/>
                 <ImageAdBanner/>
 
-        <FeaturedProducts/>
         <CraftsmanshipSection/>
         <NewsletterBanner/>
         <Footer/>

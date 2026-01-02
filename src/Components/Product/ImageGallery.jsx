@@ -1,4 +1,3 @@
-"use client";
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,12 +8,10 @@ export default function ImageGallery({ images = [], variant, className = "" }) {
   const [transformOrigin, setTransformOrigin] = useState("50% 50%");
   const containerRef = useRef(null);
 
-  // Reset image index when variant changes
   useEffect(() => {
     setActive(0);
   }, [variant]);
 
-  // Track mouse for zoom origin
   const onMouseMove = (e) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -27,7 +24,6 @@ export default function ImageGallery({ images = [], variant, className = "" }) {
 
   return (
     <div className={`w-full ${className}`}>
-      {/* MAIN IMAGE */}
       <div
         ref={containerRef}
         onMouseMove={onMouseMove}
@@ -43,7 +39,7 @@ export default function ImageGallery({ images = [], variant, className = "" }) {
             alt={`Product image ${active + 1}`}
             loading="lazy"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, scale: isHovering ? 1.6 : 1 }} // hover zoom only
+            animate={{ opacity: 1, scale: isHovering ? 1.6 : 1 }} 
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="absolute inset-0 h-full w-full object-cover"
@@ -54,7 +50,6 @@ export default function ImageGallery({ images = [], variant, className = "" }) {
           />
         </AnimatePresence>
 
-        {/* Variant label */}
         {variant?.color && (
           <div className="absolute left-3 top-3 rounded-md bg-card/60 px-3 py-1 text-xs font-medium backdrop-blur-sm">
             {variant.color}
@@ -62,7 +57,6 @@ export default function ImageGallery({ images = [], variant, className = "" }) {
         )}
       </div>
 
-      {/* THUMBNAILS */}
       <div className="mt-3 flex gap-3 items-center overflow-auto px-1 py-1">
         {displayImages.map((src, idx) => (
           <button

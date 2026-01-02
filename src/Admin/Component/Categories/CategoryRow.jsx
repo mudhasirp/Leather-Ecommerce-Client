@@ -1,18 +1,14 @@
-// src/Component/Categories/CategoryRow.jsx
 import React from "react";
 
 function CategoryRow({ cat, onEdit, onToggleStatus }) {
   return (
     <tr className="border-b last:border-0">
-      {/* Name */}
       <td className="py-3 px-4 text-sm font-medium">{cat.name}</td>
 
-      {/* Description */}
       <td className="py-3 px-4 text-sm text-muted-foreground">
         <div className="max-w-[36rem] truncate">{cat.description || "—"}</div>
       </td>
 
-      {/* Status + Toggle Button */}
       <td className="py-3 px-4 text-sm space-y-1">
         {cat.isActive ? (
           <span className="inline-flex items-center gap-2 rounded-full px-2 py-1 text-xs bg-green-50 text-green-700">
@@ -24,7 +20,6 @@ function CategoryRow({ cat, onEdit, onToggleStatus }) {
           </span>
         )}
 
-        {/* Toggle button */}
         <button
           onClick={() => onToggleStatus && onToggleStatus(cat)}
           className="block text-xs underline text-muted-foreground hover:text-foreground"
@@ -34,7 +29,6 @@ function CategoryRow({ cat, onEdit, onToggleStatus }) {
         </button>
       </td>
 
-      {/* Image */}
       <td className="py-3 px-4 text-sm">
         {cat.image ? (
           <img
@@ -49,7 +43,6 @@ function CategoryRow({ cat, onEdit, onToggleStatus }) {
         )}
       </td>
 
-      {/* Actions */}
       <td className="py-3 px-4 text-sm">
         <button
   onClick={() => onEdit && onEdit(cat)}

@@ -1,5 +1,4 @@
-// src/Pages/OrderDetailsPage.jsx
-"use client";
+
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -27,7 +26,6 @@ export default function OrderDetailsPage() {
         Order Details
       </h1>
 
-      {/* ITEMS */}
       <div className="bg-white border rounded-2xl p-6">
         <h2 className="font-medium mb-5 text-lg">Items</h2>
 
@@ -37,7 +35,6 @@ export default function OrderDetailsPage() {
               key={i}
               className="flex items-center justify-between gap-4"
             >
-              {/* LEFT: image + name */}
               <div className="flex items-center gap-4">
                 <img
                   src={item.image || "/placeholder.png"}
@@ -48,12 +45,16 @@ export default function OrderDetailsPage() {
                 <div>
                   <p className="font-medium">{item.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    Qty: {item.qty}
+                    Unit : {item.unitLabel}g
                   </p>
+                  <p className="text-sm text-muted-foreground">
+                    Qty: {item.qty * item.unitLabel}g
+                  </p>
+                  
+
                 </div>
               </div>
 
-              {/* RIGHT: price */}
               <div className="font-medium">
                 ₹{item.price * item.qty}
               </div>
@@ -61,8 +62,6 @@ export default function OrderDetailsPage() {
           ))}
         </div>
       </div>
-{/* ADDRESS */}
-{/* ADDRESS */}
 <div className="bg-white border rounded-2xl p-6">
   <h2 className="font-medium mb-3 text-lg">
     Delivery Address
@@ -91,7 +90,6 @@ export default function OrderDetailsPage() {
 
 
 
-      {/* SUMMARY */}
       <div className="bg-white border rounded-2xl p-6 space-y-2">
         <div className="flex justify-between">
           <span>Total</span>

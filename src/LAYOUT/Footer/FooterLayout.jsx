@@ -6,15 +6,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
 
-          {/* Brand */}
           <div className="space-y-4">
-            <h3 className="font-serif text-2xl font-light text-foreground">LH</h3>
+            <h3 className="font-sans text-2xl font-light text-foreground">LH</h3>
             <p className="text-sm text-muted-foreground font-light leading-relaxed">
               Premium handcrafted leather goods for the discerning individual.
             </p>
           </div>
 
-          {/* Customer Service */}
           <div className="space-y-4">
             <h4 className="text-sm tracking-widest text-foreground font-light uppercase">Customer Service</h4>
             <ul className="space-y-2">
@@ -25,7 +23,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* About */}
           <div className="space-y-4">
             <h4 className="text-sm tracking-widest text-foreground font-light uppercase">About</h4>
             <ul className="space-y-2">
@@ -36,7 +33,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Policies */}
           <div className="space-y-4">
             <h4 className="text-sm tracking-widest text-foreground font-light uppercase">Policies</h4>
             <ul className="space-y-2">
@@ -48,10 +44,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Social + Copyright */}
         <div className="border-t border-border/30 pt-8 space-y-6">
           <div className="flex gap-6 justify-start">
-            {/* these stay as <a> because they'll go to external social links */}
           </div>
 
           <p className="text-xs text-muted-foreground font-light tracking-widest">

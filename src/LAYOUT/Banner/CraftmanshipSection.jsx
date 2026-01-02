@@ -1,4 +1,3 @@
-"use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
@@ -46,7 +45,6 @@ export default function CraftsmanshipSection() {
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           
-          {/* Text */}
           <motion.div
             style={{ y: textY }}
             className="space-y-6 will-change-transform"
@@ -66,13 +64,12 @@ export default function CraftsmanshipSection() {
               freshness to ensure rich taste, nutrition, and quality.
             </p>
 
-            <p className="text-sm text-green-600 tracking-wide">
+            <p className="text-sm text-green-600 tracking-wide py-4">
               From soil preparation to harvest day, every step is handled with
               care — so you receive produce that’s fresh, healthy, and honest.
             </p>
           </motion.div>
 
-          {/* Image */}
           <motion.div
             style={{ y: imageY, scale: imageScale }}
             className="

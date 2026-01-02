@@ -38,7 +38,7 @@ const TopCategoriesSection = () => {
     <section>
       <div className="bg-card rounded-lg border border-border/50 shadow-sm">
         <div className="px-8 py-6 border-b border-border/50">
-          <h2 className="text-xl font-serif font-light">Top Categories</h2>
+          <h2 className="text-xl font-sans font-light">Top Categories</h2>
         </div>
         
         <div className="p-8">

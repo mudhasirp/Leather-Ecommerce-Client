@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -7,10 +6,7 @@ import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
 import { Badge } from "../ui/badge";
 
-/**
- * Map common color names (case-insensitive) to hex values.
- * Add more names you use in your admin UI.
- */
+
 const COLOR_MAP = {
   black: "#000000",
   brown: "#8B4513",
@@ -18,31 +14,24 @@ const COLOR_MAP = {
 };
 
 function swatchColorFromVariant(variant) {
-  // prefer explicit hex field
   if (variant?.colorHex && typeof variant.colorHex === "string" && variant.colorHex.trim()) {
     return variant.colorHex.trim();
   }
   const c = (variant?.color || "").toString().trim();
   if (!c) return "transparent";
-  // try exact css color (like "#..." or "rgb(" etc.)
   if (c.startsWith("#") || c.startsWith("rgb") || c.startsWith("hsl")) return c;
-  // otherwise lookup by lower-cased name
   const mapped = COLOR_MAP[c.toLowerCase()];
   return mapped || "transparent";
 }
 
-/** detect if color is very light (for showing border) */
 function isLightColor(hex) {
   try {
     if (!hex || hex === "transparent") return false;
-    // normalize short hex
     let h = hex.replace(/\s/g, "");
     if (h.startsWith("rgb")) {
-      // basic parse rgb(r,g,b)
       const nums = h.match(/\d+/g)?.slice(0, 3).map(Number);
       if (!nums) return false;
       const [r, g, b] = nums;
-      // luminance
       const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
       return lum > 200;
     }
@@ -77,7 +66,6 @@ export default function ProductInfo({
 }) {
   const displayPrice = (selectedVariant && selectedVariant.price) ? selectedVariant.price : (product && product.basePrice) || 0;
 
-  // ---------- derive sizes from product.variants ----------
   const allSizes = React.useMemo(() => {
     if (!product?.variants || !product.variants.length) return [];
     const set = new Set();
@@ -87,7 +75,6 @@ export default function ProductInfo({
     return Array.from(set);
   }, [product]);
 
-  // If a color/variant is selected, prefer sizes for that color
   const sizesForSelected = React.useMemo(() => {
     if (!product?.variants || !product.variants.length) return [];
     if (selectedVariant?.color) {
@@ -101,11 +88,9 @@ export default function ProductInfo({
     return allSizes;
   }, [product, selectedVariant, allSizes]);
 
-  // helper to compute stock for a given size (prefer variant matching selected color & size)
   const stockForSize = React.useCallback((size) => {
     if (!product?.variants || !product.variants.length) return 0;
 
-    // 1) if selectedVariant has color, try to find the exact variant by color+size
     if (selectedVariant?.color) {
       const found = product.variants.find(
         (v) =>
@@ -118,11 +103,9 @@ export default function ProductInfo({
       }
     }
 
-    // 2) otherwise find any variant matching the size
     const any = product.variants.find((v) => v.size === size);
     if (any) return typeof any.stock === "number" ? any.stock : 0;
 
-    // 3) as a last resort sum stock across variants that match the size
     const sum = product.variants.reduce((acc, v) => {
       if (v.size === size && typeof v.stock === "number") return acc + v.stock;
       return acc;
@@ -134,7 +117,7 @@ export default function ProductInfo({
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="sticky top-8 space-y-6">
       <div>
         <p className="mb-2 text-xs uppercase tracking-wider text-muted-foreground">Premium Leather</p>
-        <h1 className="font-serif text-3xl md:text-4xl font-light text-foreground leading-tight">{product?.name}</h1>
+        <h1 className="=font-sans text-3xl md:text-4xl font-light text-foreground leading-tight">{product?.name}</h1>
         <p className="mt-3 text-sm md:text-base leading-relaxed text-muted-foreground">{product?.description}</p>
       </div>
 
@@ -162,18 +145,15 @@ export default function ProductInfo({
                 style={{
                   backgroundColor: swatch === "transparent" ? "transparent" : swatch,
                   borderWidth: "2px",
-                  // ensure visible border for very light swatches (white/offwhite)
                   borderColor: isSelected ? undefined : (light ? "#d1d5db" : undefined),
                 }}
                 aria-label={`Select ${variant.color}`}
                 title={variant.color}
               >
-                {/* selected ring */}
                 {isSelected && (
                   <motion.div layoutId="selected-swatch" className="absolute inset-0 rounded-full ring-2 ring-accent ring-offset-2" />
                 )}
 
-                {/* Show small check or inner dot for contrast if swatch is light */}
                 {light ? (
                   <div className="w-2 h-2 rounded-full bg-gray-700/70" />
                 ) : null}

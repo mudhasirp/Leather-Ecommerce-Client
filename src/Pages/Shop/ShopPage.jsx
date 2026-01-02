@@ -1,10 +1,10 @@
-"use client";
+
 
 import { useEffect, useMemo, useState } from "react";
 import HeaderLayout from "@/Layout/Header/HeaderLayout";
-import FilterLayout from "@/Layout/Shop/FilterLayout";
-import ProductGrid from "@/Layout/Products/ProductGridShop";
 import Footer from "@/Layout/Footer/FooterLayout";
+import FilterSidebar from "@/Components/Shop/FilterBar";
+import ProductGrid from "@/Layout/Products/ProductGridShop";
 import { getUserProductsApi } from "@/API/userAPI";
 import { getCategoriesApi } from "@/API/adminApi";
 
@@ -17,51 +17,37 @@ export default function ShopPage() {
 
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [showFilter, setShowFilter] = useState(false);
 
-  // Fetch products & categories
   useEffect(() => {
     (async () => {
-      try {
-        const [prodRes, catRes] = await Promise.all([
-          getUserProductsApi(),
-          getCategoriesApi(),
-        ]);
+      const [prodRes, catRes] = await Promise.all([
+        getUserProductsApi(),
+        getCategoriesApi(),
+      ]);
 
-        const productsData = prodRes?.products ?? prodRes ?? [];
-        const categoriesData = (catRes?.categories ?? catRes ?? []).map((c) => ({
-          id: String(c._id ?? c.id),
+      setProducts(prodRes?.products || []);
+      setCategories(
+        (catRes?.categories || []).map((c) => ({
+          id: c._id,
           name: c.name,
-        }));
-
-        setProducts(productsData);
-        setCategories(categoriesData);
-      } catch (err) {
-        console.error("Error loading shop data:", err);
-      } finally {
-        setLoading(false);
-      }
+        }))
+      );
     })();
   }, []);
 
-  // 🔍 Filtering logic
   const filteredProducts = useMemo(() => {
     let data = [...products];
 
     if (filters.search) {
-      const q = filters.search.toLowerCase();
-      data = data.filter(
-        (p) =>
-          p.name.toLowerCase().includes(q) ||
-          p.description?.toLowerCase().includes(q)
+      data = data.filter((p) =>
+        p.name.toLowerCase().includes(filters.search.toLowerCase())
       );
     }
 
     if (filters.category !== "all") {
       data = data.filter(
-        (p) =>
-          String(p.category?._id ?? p.category) ===
-          String(filters.category)
+        (p) => String(p.category?._id) === String(filters.category)
       );
     }
 
@@ -80,34 +66,47 @@ export default function ShopPage() {
     <>
       <HeaderLayout />
 
-<div className="flex">
-  {/* LEFT SIDEBAR – FULL HEIGHT, LEFT EDGE */}
-  <aside className="w-72 border-r bg-white">
-    <FilterLayout
-      categories={categories}
-      onFilterChange={setFilters}
-    />
-  </aside>
+      <button
+        onClick={() => setShowFilter(true)}
+        className="fixed bottom-5 right-5 z-50 bg-black text-white px-4 py-3 rounded-full md:hidden"
+      >
+        Filter
+      </button>
 
-  {/* RIGHT CONTENT (centered) */}
-  <div className="flex-1">
-    <div className="max-w-7xl mx-auto px-4 md:px-6 py-16">
-      {loading ? (
-        <div className="flex justify-center items-center h-64">
-          Loading...
-        </div>
-      ) : (
-        <ProductGrid
-          products={filteredProducts}
-          onLoadMore={() => {}}
+      {showFilter && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+          onClick={() => setShowFilter(false)}
         />
       )}
-    </div>
-  </div>
-</div>
 
-<Footer />
+      <div className="flex min-h-screen">
+        <aside
+          className={`fixed md:static top-0 left-0 z-50 h-full w-72 bg-white border-r transition-transform duration-300
+          ${showFilter ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
+        >
+          <div className="p-4">
+            <div className="flex justify-between items-center md:hidden mb-4">
+              <h3 className="font-semibold">Filters</h3>
+              <button onClick={() => setShowFilter(false)}>✕</button>
+            </div>
 
+            <FilterSidebar
+              categories={[{ id: "all", name: "All Categories" }, ...categories]}
+              filters={filters}
+              setFilters={setFilters}
+                onClose={() => setShowFilter(false)}
+
+            />
+          </div>
+        </aside>
+
+        <main className="flex-1 px-4 md:px-8 py-8">
+          <ProductGrid products={filteredProducts} />
+        </main>
+      </div>
+
+      <Footer />
     </>
   );
 }

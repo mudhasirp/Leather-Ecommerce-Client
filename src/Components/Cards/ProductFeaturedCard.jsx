@@ -1,44 +1,76 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ProductCardFeatured({ id, name, price, image, onAddToCart ,slug}) {
+export default function ProductCardFeatured({
+  id,
+  name,
+  price,
+  image,
+  onAddToCart,
+  slug,
+  weight,
+  quantity
+}) {
+  const [qty, setQty] = useState(1);
+  console.log(qty)
+  console.log(weight)
   return (
-    <div className="group animate-fade-in relative">
+    <div className="group relative bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
       
-      {/* CARD CLICK → PRODUCT PAGE */}
+    
       <Link to={`/product/${slug}`} className="block">
-        <div className="relative overflow-hidden rounded-xl bg-background mb-3 aspect-[1/1]">
+        <div className="relative aspect-square overflow-hidden">
           <img
-            src={image || "/placeholder.svg"}
+            src={image}
             alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
-        </div>
-
-        <div className="space-y-1">
-          <h3 className="text-base font-medium text-foreground">
-            {name}
-          </h3>
-          <p className="text-green-700 font-semibold text-sm">
-            ₹{price}
-          </p>
         </div>
       </Link>
 
-      {/* ADD TO CART BUTTON */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();   // ⛔ stop navigation
-          e.preventDefault();
-          onAddToCart?.(id);
-        }}
-        className="absolute bottom-3 right-3 w-9 h-9 bg-primary/90 hover:bg-primary 
-                   text-primary-foreground rounded-full flex items-center justify-center
-                   opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-      </button>
+      <div className="p-3 space-y-2">
+        <h3 className="text-sm font-medium line-clamp-2">{name}</h3>
+
+        <p className="text-green-600 font-semibold">{price * qty}</p>
+     <p
+  className={`text-sm ${
+    quantity <= qty ? "text-red-600" : "text-green-600"
+  }`}
+>
+  {quantity <= qty
+    ? "Only the last stock available"
+    : `${quantity * weight} g available`}
+</p>
+
+        <div className="flex flex-col md:flex-row items-center gap-2 mt-2">
+
+          <div className="flex items-center border rounded-md overflow-hidden">
+            <button
+              className="px-3 py-1 text-lg"
+              onClick={() => setQty((q) => Math.max(1, q - 1))}
+            >
+              −
+            </button>
+            <span className="px-3 text-sm">{weight*qty}g</span>
+           <button
+  className="px-3 py-1 text-lg"
+  onClick={() => {
+    if (qty < quantity) setQty(qty + 1);
+  }}
+>
+  +
+</button>
+
+          </div>
+
+          <button
+            onClick={() => onAddToCart({ id, qty,weight })}
+            className="flex-1 bg-green-600 hover:bg-green-700 text-white px-13 py-2 rounded-md text-sm "
+          >
+            Add
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

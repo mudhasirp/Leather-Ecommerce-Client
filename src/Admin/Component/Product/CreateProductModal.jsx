@@ -1,10 +1,8 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import { createProductApi, getCategoriesApi } from "@/API/adminApi";
 import { toast } from "sonner";
 
-/* ------------------ CONSTANTS ------------------ */
 const EMPTY_UNIT = {
   label: "",
   weightInGrams: "",
@@ -13,7 +11,6 @@ const EMPTY_UNIT = {
 };
 
 export default function CreateProductModal({ open, onClose, onCreated }) {
-  /* ------------------ FORM STATE ------------------ */
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -33,7 +30,6 @@ export default function CreateProductModal({ open, onClose, onCreated }) {
 
   const [loading, setLoading] = useState(false);
 
-  /* ------------------ LOAD CATEGORIES ------------------ */
   useEffect(() => {
     if (!open) return;
 
@@ -48,7 +44,6 @@ export default function CreateProductModal({ open, onClose, onCreated }) {
     })();
   }, [open]);
 
-  /* ------------------ MAIN IMAGE PREVIEW ------------------ */
   useEffect(() => {
     if (!mainImage) {
       setMainPreview("");
@@ -61,7 +56,6 @@ export default function CreateProductModal({ open, onClose, onCreated }) {
 
   if (!open) return null;
 
-  /* ------------------ UNIT HELPERS ------------------ */
   const updateUnit = (i, patch) =>
     setUnitVariants((u) =>
       u.map((x, idx) => (idx === i ? { ...x, ...patch } : x))
@@ -71,7 +65,6 @@ export default function CreateProductModal({ open, onClose, onCreated }) {
   const removeUnit = (i) =>
     setUnitVariants((u) => u.filter((_, idx) => idx !== i));
 
-  /* ------------------ EXTRA IMAGES (MAX 3) ------------------ */
   const handleExtraImages = (e) => {
     const files = Array.from(e.target.files || []).filter((f) =>
       f.type.startsWith("image/")
@@ -117,7 +110,6 @@ const resetForm = () => {
   setExtraPreviews([]);
 };
 
-  /* ------------------ SUBMIT ------------------ */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -164,7 +156,6 @@ const resetForm = () => {
     }
   };
 
-  /* ------------------ UI ------------------ */
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 px-4 pt-8">
       <form
@@ -176,7 +167,6 @@ const resetForm = () => {
           <button type="button" onClick={onClose}>✕</button>
         </header>
 
-        {/* BASIC INFO */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             placeholder="Vegetable name"
@@ -213,7 +203,6 @@ const resetForm = () => {
           }
         />
 
-        {/* ACTIVE */}
         <div className="mt-4">
           <label className="flex items-center gap-2 text-sm">
             <input
@@ -227,7 +216,6 @@ const resetForm = () => {
           </label>
         </div>
 
-        {/* MAIN IMAGE */}
         <div className="mt-6">
           <label className="text-sm font-medium">Main Image</label>
           <input type="file" accept="image/*"
@@ -240,7 +228,6 @@ const resetForm = () => {
           )}
         </div>
 
-        {/* EXTRA IMAGES */}
         <div className="mt-6">
           <label className="text-sm font-medium">
             Additional Images (max 3)
@@ -263,7 +250,6 @@ const resetForm = () => {
           </div>
         </div>
 
-        {/* UNIT VARIANTS */}
         <div className="mt-8 border-t pt-6">
           <div className="flex justify-between mb-3">
             <h3 className="font-medium">Unit Variants</h3>
@@ -312,7 +298,6 @@ const resetForm = () => {
           ))}
         </div>
 
-        {/* FOOTER */}
         <footer className="flex justify-end gap-3 mt-8">
           <button type="button" onClick={onClose} className="lux-btn-outline">
             Cancel

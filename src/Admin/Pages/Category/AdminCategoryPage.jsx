@@ -1,17 +1,16 @@
-// src/Pages/CategoriesPage.jsx
 import React, { useEffect, useState } from "react";
-import AdminSidebar from "../Component/Common/AdminSidebar";
-import CategoryPageHeader from "../Layout/Category/CategoryPageHeader";
-import CategoryList from "../Component/Categories/CategoryList";
-import CreateCategoryModal from "../Component/Categories/CreateCategoryModal";
-import EditCategoryModal from "../Component/Categories/EditCategoryModal"; // ensure path correct
+import AdminSidebar from "../../Component/Common/AdminSidebar";
+import CategoryPageHeader from "../../Layout/Category/CategoryPageHeader";
+import CategoryList from "../../Component/Categories/CategoryList";
+import CreateCategoryModal from "../../Component/Categories/CreateCategoryModal";
+import EditCategoryModal from "../../Component/Categories/EditCategoryModal"; 
 import { getCategoriesApi, toggleCategoryStatusApi } from "@/API/adminApi";
 import { toast } from "sonner";
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false); // create modal
-  const [editing, setEditing] = useState(null);      // edit modal (category object)
+  const [modalOpen, setModalOpen] = useState(false); 
+  const [editing, setEditing] = useState(null);     
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loadingIds, setLoadingIds] = useState(new Set());
 
@@ -29,7 +28,6 @@ export default function CategoriesPage() {
     loadCategories();
   }, []);
 
-  // Single toggle handler (same as before)
   const handleToggleStatus = async (cat) => {
     const id = cat._id;
     const newStatus = !cat.isActive;
@@ -78,7 +76,7 @@ export default function CategoriesPage() {
           <CategoryList
             categories={categories}
             onRefresh={loadCategories}
-            onEdit={handleEdit}                 // <-- passes handler that calls setEditing
+            onEdit={handleEdit}                
             onToggleStatus={handleToggleStatus}
             loadingIds={loadingIds}
           />
@@ -91,7 +89,6 @@ export default function CategoriesPage() {
         onCreated={(c) => setCategories((prev) => [c, ...prev])}
       />
 
-      {/* Edit modal — opens when `editing` is non-null */}
       <EditCategoryModal
         open={!!editing}
         category={editing}

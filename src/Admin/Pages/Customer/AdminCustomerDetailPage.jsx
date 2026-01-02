@@ -1,4 +1,3 @@
-"use client";
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -12,6 +11,8 @@ import { toast } from "sonner";
 export default function CustomerDetailsPage() {
   const { id } = useParams();
   const [data, setData] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
   useEffect(() => {
     (async () => {
@@ -45,51 +46,62 @@ export default function CustomerDetailsPage() {
 
       <div className="h-screen flex overflow-hidden bg-slate-50">
 
-      {/* SIDEBAR */}
-      <AdminSidebar activeItem="customers" />
+      <AdminSidebar
+  activeItem="customers"
+  isOpen={sidebarOpen}
+  onClose={() => setSidebarOpen(false)}
+/>
 
-      {/* MAIN */}
+
        <div className="flex-1 overflow-y-auto">
       <main className="px-4 md:px-8 py-6 space-y-6">
 
-        {/* HEADER CARD */}
-        <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-            {/* USER INFO */}
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-2xl font-semibold">
-                {user.name.charAt(0).toUpperCase()}
-              </div>
+       <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-              <div>
-                <h1 className="text-2xl font-serif font-semibold text-slate-900">
-                  {user.name}
-                </h1>
-                <p className="text-sm text-slate-500">{user.email}</p>
-                <p className="text-sm text-slate-500 mt-1">
-                  📞 {defaultAddress?.phone || "—"}
-                </p>
-              </div>
-            </div>
+    <div className="flex items-center gap-4">
+      <button
+        onClick={() => setSidebarOpen(true)}
+        className="md:hidden p-2 rounded-md border"
+      >
+        ☰
+      </button>
 
-            {/* ACTION */}
-            <button
-              onClick={handleBlockToggle}
-              className={`px-5 py-2 rounded-xl text-sm font-medium transition
-                ${
-                  user.isBlocked
-                    ? "bg-green-600 text-white hover:bg-green-700"
-                    : "bg-red-600 text-white hover:bg-red-700"
-                }`}
-            >
-              {user.isBlocked ? "Unblock User" : "Block User"}
-            </button>
-          </div>
-        </section>
+      <div className="flex items-center gap-4">
+        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-white text-2xl font-semibold">
+          {user.name.charAt(0).toUpperCase()}
+        </div>
 
-        {/* GRID */}
+        <div>
+          <h1 className="text-2xl font-sans font-semibold text-slate-900">
+            {user.name}
+          </h1>
+          <p className="text-sm text-slate-500">{user.email}</p>
+          <p className="text-sm text-slate-500">
+            📞 {defaultAddress?.phone || "—"}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button
+      onClick={handleBlockToggle}
+      className={`px-5 py-2 rounded-xl text-sm font-medium transition
+        ${
+          user.isBlocked
+            ? "bg-green-600 text-white hover:bg-green-700"
+            : "bg-red-600 text-white hover:bg-red-700"
+        }`}
+    >
+      {user.isBlocked ? "Unblock User" : "Block User"}
+    </button>
+  </div>
+</section>
+
+        
+        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* ADDRESS */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">
               Default Address
@@ -113,7 +125,6 @@ export default function CustomerDetailsPage() {
             )}
           </section>
 
-          {/* ORDERS */}
           <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-2">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-4">
               Orders
@@ -125,7 +136,7 @@ export default function CustomerDetailsPage() {
                   key={o._id}
                   className="flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 text-sm hover:bg-slate-50 transition"
                 >
-                  <span className="text-slate-600 truncate max-w-[160px]">
+                  <span className="text-slate-600 truncate max-w-40">
                     {o._id}
                   </span>
                   <span className="font-medium text-green-700">
@@ -144,7 +155,6 @@ export default function CustomerDetailsPage() {
           </section>
         </div>
 
-        {/* ENQUIRIES */}
         <section className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-4">
             Enquiries

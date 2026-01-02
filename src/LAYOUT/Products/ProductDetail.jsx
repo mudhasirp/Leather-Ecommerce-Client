@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +5,12 @@ import { toast } from "sonner";
 import ImageGallery from "@/Components/Product/ImageGallery";
 import { addToCart, clearCartApi } from "@/API/userAPI";
 import EnquiryModal from "@/Components/Enquiry/EnquiryModal";
+
 export default function ProductDetail({ product }) {
   const navigate = useNavigate();
   const p = product ?? {};
 
+  
   const [selectedUnit, setSelectedUnit] = useState(null);
   const [packs, setPacks] = useState(1); 
 const [enquiryOpen, setEnquiryOpen] = useState(false);
@@ -28,7 +29,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
     return [p.mainImage].filter(Boolean);
   }, [p]);
 
-  /* ---------------- CALCULATIONS ---------------- */
   const unitWeight = selectedUnit?.weightInGrams || 0;
   const unitPrice = selectedUnit?.price || 0;
   const availableStock = selectedUnit?.stock || 0;
@@ -37,77 +37,63 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
   const totalWeightKg = totalWeightGrams / 1000;
   const totalPrice = unitPrice * packs;
 
-  /* ---------------- ADD TO CART ---------------- */
-  const handleAddToCart = async () => {
-    if (!selectedUnit) {
-      toast.error("Please select a pack size");
-      return;
-    }
+ const handleAddToCart = async () => {
+  if (!selectedUnit) {
+    toast.error("Please select a pack size");
+    return;
+  }
 
-    if (packs > availableStock) {
-      toast.error("Quantity exceeds available stock");
-      return;
-    }
+  if (packs < 1) {
+    toast.error("Invalid quantity");
+    return;
+  }
 
-    try {
-      await addToCart({
-        productId: p._id,
-        unitLabel: selectedUnit.label,
-        unitWeight,
-        qty: packs,
-        totalWeight: totalWeightGrams,
-        price: unitPrice,
-        totalPrice,
-        name: p.name,
-        image: p.mainImage,
-        slug: p.slug,
-      });
+  try {
+    await addToCart({
+      productId: p._id,
+      unitLabel: selectedUnit.label,
+      qty: packs,
+    });
 
-      toast.success("Added to cart");
-      navigate("/cart");
-    } catch {
-      toast.error("Failed to add to cart");
-    }
-  };
+    toast.success("Added to cart");
+  } catch (err) {
+    toast.error("Failed to add to cart");
+  }
+};
+
   const handleBuyNow = async () => {
   if (!selectedUnit) {
     toast.error("Please select a pack size");
     return;
   }
 
-  if (packs > availableStock) {
-    toast.error("Quantity exceeds available stock");
+  if (packs < 1) {
+    toast.error("Invalid quantity");
     return;
   }
 
   try {
-    await clearCartApi()
+    await clearCartApi();
+
+    
     await addToCart({
       productId: p._id,
       unitLabel: selectedUnit.label,
-      unitWeight,
       qty: packs,
-      totalWeight: totalWeightGrams,
-      price: unitPrice,
-      totalPrice,
-      name: p.name,
-      image: p.mainImage,
-      slug: p.slug,
     });
 
-    navigate("/checkout"); // 👈 DIRECT CHECKOUT
-  } catch {
-    toast.error("Failed to proceed");
+    navigate("/checkout");
+  } catch (error) {
+    toast.error("Failed to proceed to checkout");
   }
 };
 
 
-  /* ---------------- UI ---------------- */
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-4 py-8">
 
-        {/* Breadcrumb */}
         <div className="mb-6 text-sm text-muted-foreground">
           Home / Vegetables /{" "}
           <span className="text-foreground font-medium">{p.name}</span>
@@ -115,15 +101,12 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
 
         <div className="grid gap-10 lg:grid-cols-2">
 
-          {/* Images (reduced size) */}
           <div className="max-w-[420px]">
             <ImageGallery images={images} />
           </div>
 
-          {/* Info */}
-          <div className="space-y-8">
+          <div className="space-y-4">
 
-            {/* Title */}
             <div>
               <h1 className="text-3xl font-semibold text-green-800">
                 {p.name}
@@ -133,7 +116,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
               </p>
             </div>
 
-            {/* Unit selector */}
             <div>
               <h4 className="text-sm font-medium mb-3">
                 Choose Pack Size
@@ -159,7 +141,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
               </div>
             </div>
 
-            {/* Quantity / Weight selector */}
             <div className="flex items-center justify-between">
               <div className="flex items-center border rounded-xl overflow-hidden">
                 <button
@@ -169,7 +150,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
                   −
                 </button>
 
-                {/* SHOW WEIGHT, NOT NUMBER */}
                 <span className="px-6 py-2 font-medium min-w-[90px] text-center">
                   {totalWeightKg >= 1
                     ? `${totalWeightKg} kg`
@@ -186,16 +166,9 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
                 </button>
               </div>
 
-              <div className="text-sm text-muted-foreground">
-                {availableStock > 0
-                  ? availableStock * unitWeight >= 1000
-                    ? `${(availableStock * unitWeight) / 1000} kg available`
-                    : `${availableStock * unitWeight} g available`
-                  : "Out of stock"}
-              </div>
+           
             </div>
 
-            {/* Price */}
             <div>
               <div className="text-3xl font-semibold text-green-700">
                 ₹{totalPrice}
@@ -203,15 +176,44 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
               <p className="text-sm text-muted-foreground">
                 Total price
               </p>
+              
             </div>
+      <div className="space-y-1">
+  <div
+    className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+      ${
+        availableStock === 0 || packs >= availableStock
+          ? "bg-red-100 text-red-700"
+          : "bg-green-50 text-green-700"
+      }`}
+  >
+    <span
+      className={`w-2 h-2 rounded-full ${
+        availableStock === 0 || packs >= availableStock
+          ? "bg-red-600"
+          : "bg-green-600"
+      }`}
+    />
+
+    {availableStock === 0 ? (
+      "Out of stock"
+    ) : packs >= availableStock ? (
+      "Only this stock available"
+    ) : (
+      `${availableStock * unitWeight >= 1000
+        ? (availableStock * unitWeight) / 1000 + " kg"
+        : availableStock * unitWeight + " g"} available`
+    )}
+  </div>
+</div>
+
+
+
 
           
-{/* ACTION BUTTONS */}
 <div className="space-y-4 pt-4">
 
-  {/* MAIN ACTIONS */}
   <div className="flex gap-4">
-    {/* BUY NOW */}
     <button
       onClick={handleBuyNow}
       className="
@@ -225,7 +227,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
       Buy Now
     </button>
 
-    {/* ADD TO CART */}
     <button
       onClick={handleAddToCart}
       className="
@@ -241,7 +242,6 @@ const [enquiryOpen, setEnquiryOpen] = useState(false);
     </button>
   </div>
 
-  {/* SEND ENQUIRY */}
   <button
     onClick={() => setEnquiryOpen(true)}
     className="

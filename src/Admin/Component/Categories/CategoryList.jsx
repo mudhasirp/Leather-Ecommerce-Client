@@ -153,7 +153,7 @@ export default function CategoryList({ categories = [], onRefresh, onEdit, onTog
   return (
     <div className="space-y-4 w-full">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-serif"></h2>
+        <h2 className="text-xl font-sans"></h2>
         <div className="flex items-center gap-3">
           <button onClick={onRefresh} className="inline-flex items-center gap-2 rounded-md px-3 py-1 text-sm text-muted-foreground hover:bg-card/60">
             <IconRefresh />

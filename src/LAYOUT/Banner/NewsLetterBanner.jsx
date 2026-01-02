@@ -1,4 +1,3 @@
-"use client";
 
 import { useState } from "react";
 import InputField from "@/Components/Input/Input";
@@ -20,7 +19,7 @@ export default function NewsletterBanner() {
       <div className="max-w-2xl mx-auto">
         <div className="bg-card border border-border/30 rounded-sm p-12 md:p-16 text-center space-y-8 animate-fade-in">
           <div className="space-y-2">
-            <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
+            <h2 className="font-sans text-4xl md:text-5xl font-light tracking-tight text-foreground">
               Join the Vegetable Circle
             </h2>
             <p className="text-lg text-muted-foreground font-light">

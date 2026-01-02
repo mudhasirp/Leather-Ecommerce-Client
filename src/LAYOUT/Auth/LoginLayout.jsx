@@ -7,11 +7,13 @@ import { useGoogleLogin } from "@react-oauth/google";
 import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { googleLoginApi, loginUserApi } from "@/API/userAPI";
+import { Eye, EyeOff } from "lucide-react";
 
 const LoginLayout = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,9 +73,8 @@ const LoginLayout = () => {
       HeadContent={`Sign in <br /> to Leather Haven`}
       mainContent={
         <>
-          {/* Brand block */}
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
-            <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
+            <h2 className="font-sans text-4xl md:text-5xl font-light tracking-tight text-foreground">
               LEATHER
               <br />
               HAVEN
@@ -84,7 +85,6 @@ const LoginLayout = () => {
             </p>
           </div>
 
-          {/* Google login button */}
           <div className="w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-6">
             <button
               type="button"
@@ -96,7 +96,6 @@ const LoginLayout = () => {
             </button>
           </div>
 
-          {/* Divider */}
           <div className="flex items-center justify-center mt-4 mb-2 w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px]">
             <div className="flex-1 h-px bg-border/60" />
             <span className="px-3 text-xs text-muted-foreground uppercase tracking-[0.2em]">
@@ -105,7 +104,7 @@ const LoginLayout = () => {
             <div className="flex-1 h-px bg-border/60" />
           </div>
 
-          {/* Email/password form */}
+        
           <form
             onSubmit={submitLogin}
             className="space-y-6 w-full max-w-[340px] mx-auto md:mx-0 md:ml-[100px] mt-2"
@@ -128,23 +127,34 @@ const LoginLayout = () => {
               />
             </div>
 
-            <div className="space-y-2 text-left">
-              <label
-                htmlFor="password"
-                className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
-              />
-            </div>
+                <div className="space-y-2 text-left">
+      <label
+        htmlFor="password"
+        className="block text-xs tracking-widest text-muted-foreground font-light uppercase"
+      >
+        Password
+      </label>
+
+      <div className="relative">
+        <input
+          id="password"
+          type={showPassword ? "text" : "password"}
+          placeholder="••••••••"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full border border-border/50 bg-card text-foreground placeholder:text-muted-foreground/60 px-3 py-2 pr-10 rounded-lg focus:border-accent focus:ring-2 focus:ring-accent/30 outline-none transition-all"
+        />
+
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+        >
+          {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+        </button>
+      </div>
+    </div>
+
 
             <div className="text-right">
               <Link

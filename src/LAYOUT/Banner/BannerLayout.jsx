@@ -5,13 +5,11 @@ export default function CreativeVegBanner() {
   return (
 <section className="relative min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] overflow-hidden bg-gradient-to-br from-green-50 via-green-100 to-lime-100 flex items-center">
       
-      {/* Decorative organic blobs */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-green-300/30 rounded-full blur-3xl" />
       <div className="absolute -bottom-32 -right-32 w-[420px] h-[420px] bg-lime-300/40 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-        {/* ===== LEFT CONTENT ===== */}
         <div className="space-y-6">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-tight text-green-900">
             Fresh Vegetables <br />
@@ -33,7 +31,6 @@ export default function CreativeVegBanner() {
           </div>
         </div>
 
-        {/* ===== RIGHT VISUAL ===== */}
         <div className="relative flex justify-center">
   <div className="relative bg-white/70 backdrop-blur-xl rounded-3xl 
                   p-8 w-[360px] md:w-[420px] lg:w-[480px]

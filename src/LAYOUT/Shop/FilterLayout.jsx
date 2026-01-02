@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useState } from "react";
 import FilterSidebar from "@/Components/Shop/FilterBar";
@@ -15,11 +14,9 @@ export default function FilterLayout({ categories = [], onFilterChange }) {
   }, [filters]);
 
   return (
-    <div className="flex w-full ">
+    <div className="flex w-full">
 
-      {/* SIDEBAR */}
-      <aside className="w-72  shrink-0 bg-white border-r le">
-        <div className="p-4">
+      <aside className="w-72 shrink-0 bg-white border-r">
           <FilterSidebar
             categories={[{ id: "all", name: "All Categories" }, ...categories]}
             sortOptions={[
@@ -31,12 +28,10 @@ export default function FilterLayout({ categories = [], onFilterChange }) {
             filters={filters}
             setFilters={setFilters}
           />
-        </div>
       </aside>
 
-      {/* MAIN CONTENT */}
+    
       <main className="flex-1 p-4">
-        {/* Product Grid Here */}
       </main>
 
     </div>

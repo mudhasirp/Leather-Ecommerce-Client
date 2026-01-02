@@ -11,7 +11,7 @@ export const getCategoriesApi=async()=>{
    return res.data
 }
 export const createCategoryApi = async (formData) => {
-    const res = await api.post("/admin/categories", formData /*, { headers: { "Content-Type": "multipart/form-data" } }*/);
+    const res = await api.post("/admin/categories", formData /*, { headers: { "Content-Type": "multipart/form-data" } }*/)
 
   return res.data;
 };
@@ -80,7 +80,8 @@ export const toggleCustomerBlockApi = async (id) => {
   const res = await api.patch(`/admin/customers/${id}/block`);
   return res.data;
 };
-export const getDashboardApi = async () => {
-  const res = await api.get("/admin/dashboard");
+export const getDashboardApi = async (range = "month") => {
+  const res = await api.get(`/admin/dashboard?range=${range}`);
   return res.data;
 };
+

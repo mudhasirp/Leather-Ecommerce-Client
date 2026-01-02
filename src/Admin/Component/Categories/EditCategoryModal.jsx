@@ -8,8 +8,8 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
     isActive: true,
   });
 
-  const [imageFile, setImageFile] = useState(null);   // new upload file
-  const [preview, setPreview] = useState("");         // preview for new file OR existing image
+  const [imageFile, setImageFile] = useState(null);  
+  const [preview, setPreview] = useState("");         
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -29,17 +29,14 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
         isActive: typeof category.isActive === "boolean" ? category.isActive : true,
       });
 
-      // show existing image as preview if available
       setPreview(category.image || "");
       setImageFile(null);
       setError("");
     }
   }, [open, category]);
 
-  // create preview when user picks a new file
   useEffect(() => {
     if (!imageFile) {
-      // keep existing preview (existing image) if present
       return;
     }
     const url = URL.createObjectURL(imageFile);
@@ -82,10 +79,8 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
       fd.append("description", form.description || "");
       fd.append("isActive", form.isActive ? "true" : "false");
 
-      // If admin selected a new image, send it. If not, backend should keep existing image.
       if (imageFile) fd.append("image", imageFile);
 
-      // call API - send FormData and category id
       const res = await updateCategoryApi(category._id, fd);
       const updated = res?.category ?? res;
 
@@ -112,9 +107,8 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
         className="relative z-10 w-full max-w-3xl rounded-2xl bg-card p-4 sm:p-6 shadow-lg border border-border
                max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-6rem)] overflow-auto"
       >
-        {/* Header */}
         <header className="mb-4 flex items-center justify-between">
-          <h3 className="text-lg font-serif">Edit Category</h3>
+          <h3 className="text-lg font-sans">Edit Category</h3>
 
           <button
             type="button"
@@ -137,10 +131,8 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
           </button>
         </header>
 
-        {/* BODY */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-4 items-start">
           <div className="space-y-4">
-            {/* Name */}
             <div>
               <label className="text-xs uppercase text-muted-foreground block mb-2">Name</label>
               <input
@@ -151,7 +143,6 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
               />
             </div>
 
-            {/* Active checkbox */}
             <div className="flex items-center gap-3">
               <input
                 id="isActive"
@@ -164,7 +155,6 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
               <label htmlFor="isActive" className="text-sm select-none">Is Active</label>
             </div>
 
-            {/* Description */}
             <div>
               <label className="text-xs uppercase text-muted-foreground block mb-2">Description</label>
               <textarea
@@ -177,7 +167,6 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
             </div>
           </div>
 
-          {/* Right: image upload + preview */}
           <div className="space-y-3 flex flex-col self-start">
             <label className="text-xs uppercase text-muted-foreground">Image</label>
 
@@ -205,10 +194,8 @@ export default function EditCategoryModal({ open, onClose, category, onUpdated }
           </div>
         </div>
 
-        {/* Error */}
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
 
-        {/* Footer */}
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"

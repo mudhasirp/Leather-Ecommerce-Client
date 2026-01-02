@@ -59,9 +59,8 @@ const OtpVerify = ({ email = "****@gmail.com", onVerify }) => {
 
   return (
     <div className="space-y-8 text-center animate-fade-in">
-      {/* Brand Logo */}
       <div className="space-y-2">
-        <h1 className="font-serif text-6xl font-light tracking-tight text-foreground">
+        <h1 className="font-sans text-6xl font-light tracking-tight text-foreground">
           LEATHER
           <br />
           HAVEN
@@ -72,7 +71,6 @@ const OtpVerify = ({ email = "****@gmail.com", onVerify }) => {
         </p>
       </div>
 
-      {/* OTP Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-3">
           <p className="text-sm text-muted-foreground font-light">
@@ -119,7 +117,6 @@ const OtpVerify = ({ email = "****@gmail.com", onVerify }) => {
         </Button>
       </form>
 
-      {/* Resend */}
       <div className="space-y-3 pt-4 border-t border-border/30">
         {isResendDisabled ? (
           <p className="text-xs text-muted-foreground font-light">
