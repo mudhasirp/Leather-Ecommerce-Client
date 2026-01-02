@@ -54,13 +54,13 @@ const ResetPasswordLayout = () => {
         <>
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
             <h2 className="font-serif text-4xl md:text-5xl font-light tracking-tight text-foreground">
-              LEATHER
+              FRESH
               <br />
-              HAVEN
+              MART
             </h2>
             <div className="h-0.5 w-12 bg-linear-to-r from-transparent via-accent to-transparent md:mx-0 mx-auto my-4" />
             <p className="text-xs tracking-widest text-muted-foreground font-light">
-              PREMIUM CRAFTED LEATHER
+              AVAILABLE FRESH VEGETABLES
             </p>
           </div>
 
@@ -73,7 +73,7 @@ const ResetPasswordLayout = () => {
                 Set a new password
               </h2>
               <p className="text-xs md:text-sm text-muted-foreground font-light">
-                Choose a strong password to secure your Leather Haven account.
+                Choose a strong password to secure your Fresh Mart account.
               </p>
             </div>
 

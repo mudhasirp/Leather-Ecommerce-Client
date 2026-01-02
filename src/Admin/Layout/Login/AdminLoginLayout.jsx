@@ -68,7 +68,7 @@ const handleAdminLogin = async (e) => {
       <div className="relative z-10 w-full max-w-md px-6">
         <div className="mb-8 text-center space-y-2">
           <p className="text-[11px] tracking-[0.25em] uppercase text-muted-foreground">
-            Leather Haven · Admin
+            Fresh Mart· Admin
           </p>
           <h1 className="font-sans text-3xl sm:text-4xl font-light tracking-tight text-foreground">
             Dashboard Access

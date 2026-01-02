@@ -61,13 +61,13 @@ const OtpVerify = ({ email = "****@gmail.com", onVerify }) => {
     <div className="space-y-8 text-center animate-fade-in">
       <div className="space-y-2">
         <h1 className="font-sans text-6xl font-light tracking-tight text-foreground">
-          LEATHER
+          FRESH
           <br />
-          HAVEN
+          MART
         </h1>
         <div className="h-0.5 w-12 bg-linear-to-r from-transparent via-accent to-transparent mx-auto my-4" />
         <p className="text-xs tracking-widest text-muted-foreground font-light">
-          PREMIUM CRAFTED LEATHER
+          AVAILABLE FRESH VEGETABLES
         </p>
       </div>
 

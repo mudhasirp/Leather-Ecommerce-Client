@@ -7,9 +7,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
 
           <div className="space-y-4">
-            <h3 className="font-sans text-2xl font-light text-foreground">LH</h3>
+            <h3 className="font-sans text-2xl font-light text-green-600">FM</h3>
             <p className="text-sm text-muted-foreground font-light leading-relaxed">
-              Premium handcrafted leather goods for the discerning individual.
+              Freshness you can see. Quality you can taste.
             </p>
           </div>
 
@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           <p className="text-xs text-muted-foreground font-light tracking-widest">
-            © 2025 Leather Haven — All Rights Reserved.
+            © 2025 Fresh Mart — All Rights Reserved.
           </p>
         </div>
       </div>

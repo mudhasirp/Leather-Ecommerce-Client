@@ -70,18 +70,18 @@ const LoginLayout = () => {
 
   return (
     <Login
-      HeadContent={`Sign in <br /> to Leather Haven`}
+      HeadContent={`Sign in <br /> to Fresh Mart`}
       mainContent={
         <>
           <div className="space-y-2 mt-6 text-center md:text-left md:ml-[100px]">
-            <h2 className="font-sans text-4xl md:text-5xl font-light tracking-tight text-foreground">
-              LEATHER
+            <h2 className="font-sans text-green-700 text-4xl md:text-5xl font-light tracking-tight ">
+              FRESH
               <br />
-              HAVEN
+              MART
             </h2>
             <div className="h-0.5 w-12 bg-linear-to-r from-transparent via-accent to-transparent md:mx-0 mx-auto my-4" />
             <p className="text-xs tracking-widest text-muted-foreground font-light">
-              PREMIUM CRAFTED LEATHER
+              PREMIUM SHOP FOR GROCERIES
             </p>
           </div>
 

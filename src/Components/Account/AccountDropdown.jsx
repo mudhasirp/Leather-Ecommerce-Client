@@ -113,7 +113,7 @@ export default function AccountDropdown({ open = false, onClose = () => {}, user
             </div>
 
             <div className="px-4 py-3 text-xs text-muted-foreground border-t" style={{ borderColor: "var(--border)" }}>
-              <div>Leather Haven — handcrafted premium goods</div>
+              <div>Fresh Mart — Available Fresh Vegetables</div>
             </div>
           </div>
         </motion.div>

@@ -19,7 +19,7 @@ export default function AdminLoginForm({
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           className="w-full bg-background/60 border border-border/70 px-3 py-2.5 text-sm text-foreground outline-none focus:ring-1 focus:ring-primary/70 focus:border-primary/70 placeholder:text-muted-foreground/60"
-          placeholder="admin@leatherhaven.com"
+          placeholder="admin@freshmart.com"
         />
       </div>
 
@@ -38,7 +38,7 @@ export default function AdminLoginForm({
       </div>
 
       <div className="flex items-center justify-between text-[11px] text-muted-foreground/80">
-        <span>Only authorized Leather Haven staff.</span>
+        <span>Only authorized Fresh Mart staff.</span>
       </div>
 
       <button

@@ -22,8 +22,8 @@ export default function Navbar({ isMenuOpen = false, onToggleMenu = () => {} }) 
     <nav ref={containerRef} className="relative">
       <div className="flex items-center justify-between">
         <Link to="/home" className="shrink-0">
-          <div className="font-sans text-2xl font-light tracking-tight text-foreground">
-            LH
+          <div className="font-sans text-2xl font-light tracking-tight text-green-600 ">
+            FM
           </div>
         </Link>
 
